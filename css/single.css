@@ -1,0 +1,621 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap");
+
+/* font-family: 'Nunito', sans-serif; */
+/* font-family: 'Open Sans', sans-serif; */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main {
+  margin: 0 auto !important;
+}
+
+.menu {
+  padding: 10px;
+  background: rgb(244, 244, 244) !important;
+  width: 100%;
+  border-bottom: 5px solid rgb(237, 237, 237);
+}
+
+.voltar {
+  background: rgb(235, 240, 236);
+  color: rgb(136, 133, 133);
+  text-decoration: none;
+  cursor: pointer;
+  padding: 3px;
+  font-family: "Nunito";
+  font-size: 0.9em;
+  font-weight: 500;
+  width: 200px !important;
+  float: left !important;
+}
+
+.voltar:hover {
+  color: black;
+}
+
+/* info corretor */
+
+.info-corretor-main {
+  margin: 0 !important;
+  padding: 0 !important;
+  padding: 15px !important;
+  background: rgb(255, 255, 255) !important;
+}
+
+.info-corretor {
+  background: rgb(248, 248, 248) !important;
+  margin: 0 !important;
+  padding: 10px !important;
+  border-radius: 15px;
+
+}
+
+header,
+footer {
+  display: flex;
+  flex-direction: row;
+}
+
+header .profile-thumbnail {
+  width: 50px;
+  height: 50px;
+  border-radius: 4px;
+}
+
+header .profile-name {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 10px;
+  margin-bottom: 10px;
+  /* background: red; */
+}
+
+header h3 {
+  display: flex;
+  margin: 0;
+  font-family: "nunito";
+  font-weight: 400;
+  font-size: 1em;
+  color: rgb(131, 131, 131);
+}
+
+header h4 {
+  display: flex;
+  margin: 0;
+  font-size: 0.8em;
+  font-family: "nunito";
+  font-weight: 500;
+  color: rgb(131, 131, 131);
+}
+
+header h5 {
+  display: flex;
+  margin: 0;
+  font-size: 0.75em;
+  font-family: "nunito";
+  font-weight: 500;
+  color: rgb(131, 131, 131);
+}
+
+#inner p {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-family: "nunito";
+  font-weight: 400;
+  font-size: 1em;
+  color: rgb(131, 131, 131);
+}
+
+#inner hr {
+  margin: 2px 0;
+  border-style: solid;
+  opacity: 0.1;
+}
+
+#inner .creci {
+  font-size: 1em !important;
+  color: rgb(110, 110, 110);
+  font-family: "Nunito";
+  font-weight: 700;
+}
+
+
+
+footer .stats {
+  /* display: flex; */
+  font-size: 15px;
+  margin: 0;
+  padding: 0;
+  /* background: red; */
+}
+
+.stats {
+  width: 100%;
+  margin-top: 10px !important;
+  /* padding-top: 20px !important; */
+}
+
+.Retweets {
+  /* background: greenyellow; */
+  float: left;
+  margin: 1px;
+  width: 50px;
+  text-align: center;
+  /* margin: 0 auto; */
+  padding: 0;
+}
+
+.Retweets i {
+  margin: 0;
+  padding: 0;
+}
+
+.Retweets a {
+  color: #555555;
+}
+
+.Retweets a:hover {
+  color: #828282;
+}
+
+footer .stats .Retweets {
+  margin-right: 10px;
+  font-size: 1.5em;
+  color: rgb(65, 65, 59);
+}
+
+footer .stats strong {
+  font-size: 18px;
+}
+
+footer .stats .likes {
+  /* margin-left: 10px; */
+}
+
+footer .cta {
+  margin-left: auto;
+}
+
+footer .cta button {
+  border: 0;
+  background: transparent;
+}
+
+input {
+  margin-bottom: 10px !important;
+}
+
+.mensagem-corretor {
+
+  margin-bottom: 15px;
+  background: rgb(248, 248, 248) !important;
+
+  padding: 10px !important;
+  border-radius: 15px;
+}
+
+.mensagem-corretor h3 {
+  font-family: "Nunito";
+  font-size: 1.5em;
+  color: rgb(120, 120, 120);
+  font-weight: 500;
+  text-align: center;
+}
+
+.mensagem-corretor label,
+input {
+  font-size: 1em;
+  color: rgb(125, 125, 125);
+  font-family: "Nunito";
+  font-weight: 500;
+}
+
+.form-header {
+  background: #075e54;
+  padding: 15px 10px 5px 10px;
+  font-size: 1em;
+  margin-top: 10px;
+  color: #fff;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+}
+
+.form-header h3 {
+
+  color: #fff;
+  /* background: red; */
+  font-family: 'Open Sans';
+  font-size: 1.1em;
+  font-weight: 400;
+}
+
+.form-body {
+  background: #ece5dd;
+  margin: 0;
+  padding: 10px;
+  border-bottom-right-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+
+.form-body legend {
+  font-size: 1em;
+  font-family: 'Open Sans';
+  font-weight: 400;
+  /* background: red; */
+  margin: 0;
+  padding: 0;
+}
+
+.form-body .aviso-form {
+  background: #dcf8c6;
+  width: 90%;
+  margin: 10px auto;
+  padding: 5px;
+  border-radius: 4px;
+  font-family: 'Open Sans';
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+.botao-zap {
+  padding: 5px;
+  background: url('../imagem/casa.jpg');
+  background-repeat: no-repeat;
+  background-size: 20px;
+  background: #25d366;
+  border: none;
+  color: white;
+  border-radius: 7px;
+  width: 100% !important;
+  margin: 0 auto;
+  cursor: pointer;
+  height: 50px;
+  float: left;
+
+}
+
+.shareImovel {
+  float: left;
+
+  text-decoration: none;
+  color: #fff;
+  background-color: #075e54;
+  padding: 10px;
+  border-radius: 5px;
+  display: block;
+ 
+}
+.shareImovel:hover {
+  background-color: #06312c;
+  color: #fff;
+
+ 
+}
+
+
+/* INFO DESC */
+
+.info-desc {
+  margin: 0 !important;
+  padding: 5px !important;
+  padding: 5px !important;
+  /* background: rgb(248, 248, 248) !important; */
+}
+
+.titulo-preco {
+  /* background: rgb(255, 255, 255); */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 30px;
+  margin-bottom: 15px !important;
+  /* height: 75px; */
+  /* background: red; */
+  /* margin: 50px 0 !important; */
+  /* border: 1px solid rgb(228, 228, 228); */
+
+}
+
+.tituloLeft {
+  width: 80%;
+  /* background: yellow; */
+  margin: 0;
+  padding: 10px;
+
+}
+
+.precoRight {
+  /* background: gray; */
+  margin: 0 !important;
+  padding: 0 !important;
+  /* width: 100%; */
+  /* text-align: left; */
+}
+
+
+
+.titulo-preco .precoRight small {
+  color: rgb(172, 172, 172);
+}
+
+.info-desc-detais {
+  /* background: rgb(248, 248, 248) !important; */
+  padding: 10px !important;
+}
+
+.descricao {
+  font-size: 1.1em;
+  color: rgb(142, 142, 142);
+  font-family: 'Open Sans';
+  font-weight: 400;
+}
+
+.imovel-title {
+  font-size: 1.5em !important;
+  font-family: "Nunito";
+  font-weight: 800;
+  color: rgb(142, 142, 142);
+  /* background: gold; */
+  margin: 0;
+}
+
+.imovel-valor {
+  font-size: 1.2em !important;
+  font-family: "Nunito";
+  font-weight: 500;
+  color: rgb(255, 255, 255);
+  /* background: red; */
+  background: rgb(63, 162, 195);
+  padding: 10px;
+  border-radius: 15px;
+}
+
+.itens {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+
+
+}
+
+
+
+.item {
+  /* background: rgb(239, 239, 239); */
+  /* margin: 12px auto !important; */
+  padding: 0 !important;
+  display: flex;
+  width: 33, 33% !important;
+  /* align-items: center; */
+  /* border-bottom: 10px solid #720b0b; */
+  /* background: red !important; */
+  /* float: left !important; */
+  margin-bottom: 10px;
+
+
+
+}
+
+.item p,
+.item i {
+  /* background: rebeccapurple; */
+  margin: 0 !important;
+  padding: 0 !important;
+  /* float: left; */
+  font-size: 1.2em;
+
+
+
+}
+
+.item p {
+
+  color: rgb(130, 130, 130);
+  /* float: left !important; */
+  margin-left: 10px !important;
+  /* background: red; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Open Sans';
+  font-weight: 400;
+}
+
+.item i {
+  color: ;
+  margin-left: 12px !important;
+  /* float: left !important; */
+  /* background: green; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gallery {
+  margin: 10px 0;
+}
+
+.img-galeria {
+  background: red;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* slide */
+
+.car-main {
+  background: rgba(232, 232, 232, 0.66);
+  border-radius: 15px;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
+.carousel-item img {
+  width: 600px;
+  height: 400px;
+  object-fit: contain;
+}
+
+.carousel-control-next-icon,
+.carousel-control-prev-icon {
+  background-color: rgba(0, 0, 0, 0.605);
+}
+
+.footer {
+  background: rgb(54, 53, 53);
+  color: #fff;
+  text-align: center;
+  margin-top: 30px;
+  padding: 30px 0 20px 0;
+}
+
+.footer h1 {
+  font-size: 1em;
+  font-weight: 400;
+  font-family: "Nunito";
+}
+
+@media (max-width: 960px) {
+
+  .titulo-preco {
+    flex-direction: column !important;
+    /* height: 120px; */
+    align-items: flex-start;
+
+  }
+
+  .imovel-title {
+    width: 100% !important;
+    margin-top: 20px;
+    margin-bottom: 0 !important;
+  }
+
+  .imovel-valor {
+    /* width: 100% !important; */
+    margin-top: 20px !important;
+    margin-bottom: 1px;
+
+  }
+
+  .carousel-item img {
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+  }
+
+  .item {
+    width: 100% !important;
+
+  }
+
+
+}
+
+.bairro-title {
+  color: rgb(167, 167, 167);
+  font-family: 'Nunito';
+  font-size: 0.9em;
+  font-weight: 400;
+}
+
+/* outros imóveis */
+
+.outrosImoveis {
+  /* border-top: 1px solid #efefef; */
+  padding-top: 30px;
+  font-family: 'nunito';
+}
+
+.outrosImoveis h1 {
+  border-top: 1px solid #efefef;
+  padding-top: 30px;
+  font-family: 'nunito';
+  color: #828282;
+}
+
+.outrosImoveisCard {
+  font-size: 0.9em;
+  color: #828282;
+  font-family: 'Open Sans';
+ 
+}
+
+.outrosImoveisCard .card-title {
+  min-height: 100px;
+}
+
+.outrosImoveisCard li {
+  font-size: 0.9em;
+  color: #828282;
+  font-family: 'Open Sans';
+  font-weight: 400;
+}
+
+.outrosImoveisCard a {
+  font-size: 0.9em;
+  color: #ffffff;
+  font-family: 'Open Sans';
+  font-weight: 400;
+}
+
+
+/* tela menor */
+
+@media (min-width: 200px) {
+  .tituloLeft {
+    width: 100%;
+    /* background: rgb(24, 223, 170); */
+    margin: 0;
+    padding: 10px;
+
+  }
+
+}
+@media (min-width: 960px) {
+  .tituloLeft {
+    width: 100%;
+    /* background: rgb(24, 223, 170); */
+    margin: 0;
+    padding: 10px;
+
+  }
+
+}
+@media (min-width: 961px) {
+  .tituloLeft {
+    width: 70% !important;
+    /* background: rgb(44, 24, 223); */
+    margin: 0;
+    padding: 10px;
+
+  }
+
+}
+@media (min-width: 1200px) {
+  .tituloLeft {
+    width: 70% !important;
+    /* background: rgb(44, 24, 223); */
+    margin: 0;
+    padding: 10px;
+
+  }
+
+}
+
+
+.footer h1 {
+font-size: 0.8em;
+}
+
+.card-img-top {
+  object-fit: cover !important;
+  width: 100% !important;
+  height: 200px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
