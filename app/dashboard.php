@@ -219,8 +219,8 @@ $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 
-                // $urlBase = "http://localhost/apartamentoavendacuiaba/real-estate/";
-                $urlBase = "https://www.apartamentoavendacuiaba.com.br/";
+                $urlBase = "http://localhost/apartamentoavendacuiaba/";
+                // $urlBase = "https://www.apartamentoavendacuiaba.com.br/";
                 $urlAntiga = $urlBase;
                 $tituloDeImovel = $row['titulo'];
                 $codigoImovel = $row['cod_imovel'];

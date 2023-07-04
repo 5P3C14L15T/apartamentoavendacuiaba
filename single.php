@@ -561,8 +561,8 @@ $dataMenorViews = $db->getImoveisMenorViews();
       foreach ($dataMenorViews as $value) {
         // var_dump($value);
         // criando URL
-        // $urlBase = "http://localhost/apartamentoavendacuiaba/real-estate/";
-        $urlBase = "https://www.apartamentoavendacuiaba.com.br/";
+        $urlBase = "http://localhost/apartamentoavendacuiaba/";
+        // $urlBase = "https://www.apartamentoavendacuiaba.com.br/";
 $urlAntiga = $urlBase;
 $tituloDeImovel = $value['titulo'];
 $codigoImovel = $value['cod_imovel'];

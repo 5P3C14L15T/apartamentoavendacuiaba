@@ -73,8 +73,8 @@ $urlImg = __DIR__ . "/app";
 
 // $urlBase = __DIR__ . "/";
 // talvez tenha que trocar a url
-$urlBase = "https://www.apartamentoavendacuiaba.com.br/";
-// $urlBase = "http://localhost/apartamentoavendacuiaba/real-estate/";
+// $urlBase = "https://www.apartamentoavendacuiaba.com.br/";
+$urlBase = "http://localhost/apartamentoavendacuiaba/";
 
 // var_dump($urlImg);
 

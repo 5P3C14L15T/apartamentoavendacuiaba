@@ -3,7 +3,7 @@ session_start();
 class DB
 {
 
- 
+
     private $servername = "localhost";
     private $username = "root";
     private $password = "";
@@ -937,7 +937,7 @@ WHERE imovel.status = 1";
         $site = null,
         $creci = null,
         $access_type = "user",
-        
+
     ) {
         // Verificar se o usuário já existe no banco de dados
         $userExists = $this->checkUserExists($email);
@@ -957,7 +957,7 @@ WHERE imovel.status = 1";
                 $site,
                 $creci,
                 $access_type,
-               
+
             );
         } else {
             // Executar a inserção dos campos
@@ -974,7 +974,7 @@ WHERE imovel.status = 1";
                 $site,
                 $creci,
                 $access_type,
-                
+
             );
         }
     }
@@ -1004,7 +1004,7 @@ WHERE imovel.status = 1";
         $site,
         $creci,
         $access_type,
-        
+
     ) {
         $query = "INSERT INTO perfil (nome_user, imob_autonomo, whatsapp, email, 
                   descricao_user, fb, ig, linkedin, site, creci, access_type)
@@ -1023,7 +1023,7 @@ WHERE imovel.status = 1";
         $stmt->bindParam(':site', $site);
         $stmt->bindParam(':creci', $creci);
         $stmt->bindParam(':access_type', $access_type);
-      
+
         $stmt->execute();
     }
 
@@ -1040,7 +1040,7 @@ WHERE imovel.status = 1";
         $site,
         $creci,
         $access_type,
-        
+
     ) {
         $query = "UPDATE perfil SET nome_user = :nome_user, imob_autonomo = :imob_autonomo, whatsapp = :whatsapp,
                                                descricao_user = :descricao_user, fb = :fb,
@@ -1058,7 +1058,7 @@ WHERE imovel.status = 1";
         $stmt->bindParam(':site', $site);
         $stmt->bindParam(':creci', $creci);
         $stmt->bindParam(':access_type', $access_type);
-        
+
         $stmt->bindParam(':email', $email);
         $stmt->execute();
     }
@@ -1308,32 +1308,32 @@ WHERE imovel.status = 1";
     public function getImoveisMenorViews()
     {
         // Consulta para obter os 4 imóveis com os menores valores de views
-    //     $query = "
-    //     SELECT i.titulo, i.cod_imovel, i.valor, i.quartos, i.id_bairro, img.url AS primeira_imagem_url, b.nome AS nome_bairro
-    //     FROM imovel AS i
-    //     JOIN bairros AS b ON b.id = i.id_bairro
-    //     LEFT JOIN (
-    //         SELECT id_imovel, url
-    //         FROM imagem
-    //         WHERE id IN (
-    //             SELECT MIN(id)
-    //             FROM imagem
-    //             GROUP BY id_imovel
-    //         )
-    //     ) AS img ON img.id_imovel = i.id_imovel
-    //     WHERE i.views IN (
-    //         SELECT views
-    //         FROM (
-    //             SELECT views
-    //             FROM imovel
-    //             ORDER BY views ASC
-    //             LIMIT 4
-    //         ) AS temp
-    //     )
-    //     LIMIT 4
-    // ";
+        //     $query = "
+        //     SELECT i.titulo, i.cod_imovel, i.valor, i.quartos, i.id_bairro, img.url AS primeira_imagem_url, b.nome AS nome_bairro
+        //     FROM imovel AS i
+        //     JOIN bairros AS b ON b.id = i.id_bairro
+        //     LEFT JOIN (
+        //         SELECT id_imovel, url
+        //         FROM imagem
+        //         WHERE id IN (
+        //             SELECT MIN(id)
+        //             FROM imagem
+        //             GROUP BY id_imovel
+        //         )
+        //     ) AS img ON img.id_imovel = i.id_imovel
+        //     WHERE i.views IN (
+        //         SELECT views
+        //         FROM (
+        //             SELECT views
+        //             FROM imovel
+        //             ORDER BY views ASC
+        //             LIMIT 4
+        //         ) AS temp
+        //     )
+        //     LIMIT 4
+        // ";
 
-    $query = "
+        $query = "
     SELECT i.titulo, i.cod_imovel, i.valor, i.quartos, i.id_bairro, img.url AS primeira_imagem_url, b.nome AS nome_bairro
     FROM imovel AS i
     JOIN bairros AS b ON b.id = i.id_bairro
@@ -1513,7 +1513,7 @@ WHERE imovel.status = 1";
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
             $payment = $result['payment'];
 
-           
+
 
             // Verificar se há 1 registro na tabela "imovel" e o "payment" é "free"
             if ($totalRegistros >= 1 && $payment == "free") {
@@ -1543,5 +1543,58 @@ WHERE imovel.status = 1";
     }
 
 
-
+    // FEED RSS
+    public function generateRSSFeed() {
+        $stmt = $this->conn->query("SELECT i.titulo, i.descricao, i.data_criacao, i.cod_imovel, im.url AS imagem_url
+                                   FROM imovel i
+                                   LEFT JOIN imagem im ON i.id_imovel = im.id_imovel
+                                   WHERE im.id = (SELECT MIN(id) FROM imagem WHERE imagem.id_imovel = i.id_imovel)
+                                   ORDER BY i.data_criacao DESC");
+    
+        $rssFeed = '<?xml version="1.0" encoding="UTF-8"?>';
+        $rssFeed .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">';
+        $rssFeed .= '<channel>';
+        $rssFeed .= '<title>Apartamento a Venda Cuiabá Feed RSS</title>';
+        $rssFeed .= '<link>https://www.apartamentoavendacuiaba.com.br/feed.php</link>';
+        $rssFeed .= '<description>Aqui você encontra os Apartamentos a Venda na Cidade de Cuiabá!</description>';
+        $rssFeed .= '<atom:link href="https://www.apartamentoavendacuiaba.com.br/feed.php" rel="self" type="application/rss+xml" />';
+    
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $titulo = $row['titulo'];
+            $descricao = $row['descricao'];
+            $dataCriacao = $row['data_criacao'];
+            $codImovel = $row['cod_imovel'];
+            $guid = $codImovel;
+            $urlImagem = "https://www.apartamentoavendacuiaba.com.br/app/" . $row['imagem_url'];
+    
+            $urlImovel = $this->criar_url_amigavel("https://www.apartamentoavendacuiaba.com.br/", $titulo, $codImovel);
+    
+            $rssFeed .= '<item>';
+            $rssFeed .= '<guid isPermaLink="false">' . $guid . '</guid>';
+            $rssFeed .= '<title>' . htmlspecialchars($titulo) . '</title>';
+            $rssFeed .= '<description>' . htmlspecialchars($descricao) . '</description>';
+            $rssFeed .= '<pubDate>' . date('r', strtotime($dataCriacao)) . '</pubDate>';
+    
+            if (!empty($urlImagem)) {
+                $rssFeed .= '<enclosure url="' . htmlspecialchars($urlImagem) . '" length="10000" type="image/jpeg" />';
+            }
+    
+            $rssFeed .= '<link>' . htmlspecialchars($urlImovel) . '</link>';
+            $rssFeed .= '</item>';
+        }
+    
+        $rssFeed .= '</channel>';
+        $rssFeed .= '</rss>';
+    
+        // Define o cabeçalho HTTP para indicar que o conteúdo é um feed RSS
+        header('Content-Type: application/rss+xml; charset=utf-8');
+    
+        // Imprime o feed RSS
+        echo $rssFeed;
+    }
+    
+    
 }
+
+
+
