@@ -98,7 +98,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
   <meta property="og:title" content="<?php echo $value['titulo']; ?>" />
   <meta property="og:description" content="<?php echo $value['descricao']; ?>" />
   <meta property="og:url" content="<?php echo $urlCompleta; ?>" />
-  <meta property="og:image" content="./app/<?php echo $dataImagem[0]['url']; ?>" />
+  <meta property="og:image" content="./app/<?php echo  ($dataImagem[0]['url_webp'] ? $dataImagem[0]['url_webp'] : $dataImagem[0]['url']);  ?>" />
 
   <meta property="og:image:secure_url" content="./app/<?php echo $dataImagem[0]['url']; ?>" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -256,7 +256,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
                         $set_ = '';
                       } ?>
                       <div class='carousel-item <?php echo $set_; ?>'>
-                        <img src='<?php echo "./app/" . $row['url']; ?>' class='d-block w-100'>
+                        <img src='<?php echo "./app/" .  ($row['url_webp'] ? $row['url_webp']  : $row['url']); ?>' class='d-block w-100'>
                       </div>
                       <?php $i++;
                     endforeach ?>
@@ -473,7 +473,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
             <img src="<?php
             $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg" ;
                 echo $retVal;
-            ?>" alt="Quincy Larson's profile picture"
+            ?>" alt="Anunciante"
               class="profile-thumbnail" />
             <div class="profile-name">
               <h3>
@@ -559,7 +559,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
       <?php
 
       foreach ($dataMenorViews as $value) {
-        // var_dump($value);
+        var_dump($value);
         // criando URL
         $urlBase = "http://localhost/apartamentoavendacuiaba/";
         // $urlBase = "https://www.apartamentoavendacuiaba.com.br/";
@@ -575,7 +575,11 @@ $imovelUrl = $db->criar_url_amigavel($urlAntiga, $tituloDeImovel, $codigoImovel)
 
         <div class="col-md-3 outrosImoveisCard my-2">
           <div class="card">
-            <img src="<?php echo "app/" . $value['primeira_imagem_url']; ?>" class="card-img-top" alt="...">
+            <?php 
+            $imagemOutros = ($value['segunda_imagem'] ? $value['segunda_imagem'] : $value['primeira_imagem_url'] );
+
+            ?>
+            <img src="<?php echo "app/" . $imagemOutros ?>" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">
                 <?php echo $value['titulo']; ?>

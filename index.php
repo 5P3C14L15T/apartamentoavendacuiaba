@@ -279,7 +279,7 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
 
 
                 <div class="adsImg">
-                  <img class="img-fluid img-responsive img-imovel" src="<?php echo $urlBase . "app/" . $value['url']; ?>">
+                  <img class="img-fluid img-responsive img-imovel" src="<?php echo $urlBase . "app/" . ($value['url_webp'] ? $value['url_webp']  : $value['url'] ); ?>">
                 </div>
 
                 <div class="adsCenterPreco">

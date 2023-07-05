@@ -80,7 +80,7 @@ class DB
     }
 
 
-    public function getEmailExist($email, )
+    public function getEmailExist($email,)
     {
         $sql = "SELECT email FROM perfil WHERE email = :email";
         $stmt = $this->conn->prepare($sql);
@@ -102,84 +102,71 @@ class DB
     // **********************************************************
     // UPLOAD IMAGENS
     // **********************************************************
+
     function uploadImagens($id_imovel, $upload_path, $files)
     {
+        // Informações das imagens
+        $allowed_types = array('jpg', 'jpeg', 'png', '.webp');
 
-        // informações das imagens
-        $allowed_types = array('jpg', 'jpeg', 'png');
-
-        // inserir as informações das imagens no banco de dados
+        // Inserir as informações das imagens no banco de dados
         foreach ($files['name'] as $key => $value) {
-
             $file_name = $files['name'][$key];
             $file_tmp = $files['tmp_name'][$key];
             $file_type = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
-
-            // verificar se o tipo de arquivo é permitido
+            // Verificar se o tipo de arquivo é permitido
             if (in_array($file_type, $allowed_types)) {
-
-                // gerar um nome único para o arquivo
+                // Gerar um nome único para o arquivo
                 $new_file_name = uniqid() . '.' . $file_type;
 
-                // conteúdo da imagem
-                // $image = imagecreatefromstring(file_get_contents($upload_path . $new_file_name));
-
-                // var_dump($image);
-
-                // $info = pathinfo($upload_path);
-                // echo '<pre>';
-                // print_r($info);
-                // echo '</pre>';
-
-
-                // fazer upload do arquivo
+                // Fazer upload do arquivo
                 move_uploaded_file($file_tmp, $upload_path . $new_file_name);
 
-
+                // Carregar imagem redimensionada
                 $image = imagecreatefromstring(file_get_contents($upload_path . $new_file_name));
 
-                // obter as dimensões da imagem
+                // Obter as dimensões da imagem
                 $width = imagesx($image);
                 $height = imagesy($image);
 
-                // calcular novas dimensões
+                // Calcular novas dimensões
                 $new_width = 500;
                 $new_height = 500;
 
                 if ($width > $height) {
-                    // imagem horizontal
+                    // Imagem horizontal
                     $new_height = ($height / $width) * $new_width;
                 } else {
-                    // imagem vertical
+                    // Imagem vertical
                     $new_width = ($width / $height) * $new_height;
                 }
 
-                // redimensionar a imagem
+                // Redimensionar a imagem
                 $resized_image = imagecreatetruecolor($new_width, $new_height);
                 imagecopyresampled($resized_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
-                //  imagem
+                // Salvar a imagem redimensionada como JPEG
                 imagejpeg($resized_image, $upload_path . $new_file_name, 70);
 
-                echo "<img src=" . $upload_path . $new_file_name . ">";
+                // Converter a imagem para WebP
+                $image_webp = str_replace('.' . $file_type, '.webp', $upload_path . $new_file_name);
+                imagewebp($resized_image, $image_webp, 70);
+
+                echo "<img src=" . $image_webp . ">";
                 echo "<hr>";
 
-
-
-                // inserir informações da imagem no banco de dados
-                $sql = "INSERT INTO imagem (id_imovel, url, nome, incluida_em) VALUES (?, ?, ?, NOW())";
-
-                // preparar a consulta SQL
+                // Inserir informações da imagem no banco de dados com a URL da versão WebP
+                $sql = "INSERT INTO imagem (id_imovel, url, nome, incluida_em, url_webp) VALUES (?, ?, ?, NOW(), ?)";
                 $stmt = $this->conn->prepare($sql);
-
-                // executar a consulta SQL
-                $stmt->execute([$id_imovel, $upload_path . $new_file_name, $file_name]);
+                $stmt->execute([$id_imovel, $upload_path . $new_file_name, $file_name, $image_webp]);
             } else {
                 echo "Uma imagem ultrapassa o tamanho máximo permitido!";
             }
         }
     }
+
+
+    
 
 
 
@@ -1334,11 +1321,11 @@ WHERE imovel.status = 1";
         // ";
 
         $query = "
-    SELECT i.titulo, i.cod_imovel, i.valor, i.quartos, i.id_bairro, img.url AS primeira_imagem_url, b.nome AS nome_bairro
+    SELECT i.titulo, i.cod_imovel, i.valor, i.quartos, i.id_bairro, img.url AS primeira_imagem_url, img.url_webp AS segunda_imagem, b.nome AS nome_bairro
     FROM imovel AS i
     JOIN bairros AS b ON b.id = i.id_bairro
     LEFT JOIN (
-        SELECT id_imovel, url
+        SELECT id_imovel, url, url_webp
         FROM imagem
         WHERE id IN (
             SELECT MIN(id)
@@ -1533,7 +1520,6 @@ WHERE imovel.status = 1";
                 echo '<img src="../imagem/alert.svg" width="25"> Seja <strong> PREMIUM </strong> para inserir imóveis ILIMITADOS.';
                 echo '</div>';
                 echo '</div>';
-
             }
         } catch (PDOException $e) {
             // Tratar erros de PDO aqui
@@ -1544,13 +1530,14 @@ WHERE imovel.status = 1";
 
 
     // FEED RSS
-    public function generateRSSFeed() {
+    public function generateRSSFeed()
+    {
         $stmt = $this->conn->query("SELECT i.titulo, i.descricao, i.data_criacao, i.cod_imovel, im.url AS imagem_url
                                    FROM imovel i
                                    LEFT JOIN imagem im ON i.id_imovel = im.id_imovel
                                    WHERE im.id = (SELECT MIN(id) FROM imagem WHERE imagem.id_imovel = i.id_imovel)
                                    ORDER BY i.data_criacao DESC");
-    
+
         $rssFeed = '<?xml version="1.0" encoding="UTF-8"?>';
         $rssFeed .= '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">';
         $rssFeed .= '<channel>';
@@ -1558,7 +1545,7 @@ WHERE imovel.status = 1";
         $rssFeed .= '<link>https://www.apartamentoavendacuiaba.com.br/feed.php</link>';
         $rssFeed .= '<description>Aqui você encontra os Apartamentos a Venda na Cidade de Cuiabá!</description>';
         $rssFeed .= '<atom:link href="https://www.apartamentoavendacuiaba.com.br/feed.php" rel="self" type="application/rss+xml" />';
-    
+
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
             $titulo = $row['titulo'];
             $descricao = $row['descricao'];
@@ -1566,35 +1553,30 @@ WHERE imovel.status = 1";
             $codImovel = $row['cod_imovel'];
             $guid = $codImovel;
             $urlImagem = "https://www.apartamentoavendacuiaba.com.br/app/" . $row['imagem_url'];
-    
+
             $urlImovel = $this->criar_url_amigavel("https://www.apartamentoavendacuiaba.com.br/", $titulo, $codImovel);
-    
+
             $rssFeed .= '<item>';
             $rssFeed .= '<guid isPermaLink="false">' . $guid . '</guid>';
             $rssFeed .= '<title>' . htmlspecialchars($titulo) . '</title>';
             $rssFeed .= '<description>' . htmlspecialchars($descricao) . '</description>';
             $rssFeed .= '<pubDate>' . date('r', strtotime($dataCriacao)) . '</pubDate>';
-    
+
             if (!empty($urlImagem)) {
                 $rssFeed .= '<enclosure url="' . htmlspecialchars($urlImagem) . '" length="10000" type="image/jpeg" />';
             }
-    
+
             $rssFeed .= '<link>' . htmlspecialchars($urlImovel) . '</link>';
             $rssFeed .= '</item>';
         }
-    
+
         $rssFeed .= '</channel>';
         $rssFeed .= '</rss>';
-    
+
         // Define o cabeçalho HTTP para indicar que o conteúdo é um feed RSS
         header('Content-Type: application/rss+xml; charset=utf-8');
-    
+
         // Imprime o feed RSS
         echo $rssFeed;
     }
-    
-    
 }
-
-
-

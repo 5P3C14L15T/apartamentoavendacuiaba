@@ -396,8 +396,8 @@ $imagensIdImovel = $db->getImageByIdImovel($imovel['id_imovel']);
                 <div class="col-md-3">
                   <div class="input-images">
                     <a href="deletarimagem.php?id=<?php echo $imovel['id_imovel'] ?>&delete=<?php echo $value['id']; ?>
-                    &url=<?php echo $value['url'];?>">
-                      <img src="<?php echo $value['url']; ?>" class="img-fluid img-edit" alt="" srcset="">
+                    &url=<?php echo $value['url_webp'];?>">
+                      <img src="<?php echo $value['url_webp']; ?>" class="img-fluid img-edit" alt="" srcset="">
                       <h3 class="deletarImg btn btn-danger mt-2">Deletar</h3>
                     </a>
                   </div>
