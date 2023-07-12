@@ -92,11 +92,19 @@ if(isset($_REQUEST['qtdBanheiro'])) {
     $qtdBanheiro = "";
 }
 
+
 // $qtdGaragem     = $_REQUEST['qtdGaragem'];
 if(isset($_REQUEST['qtdGaragem'])) {
     $qtdGaragem         = $_REQUEST['qtdGaragem'];
 } else {
     $qtdGaragem = "";
+}
+
+// $andar     = $_REQUEST['andar'];
+if(isset($_REQUEST['andar'])) {
+    $andar         = $_REQUEST['andar'];
+} else {
+    $andar = "";
 }
 
 // $cozinha        = $_REQUEST['cozinha'];
@@ -236,6 +244,7 @@ if (isset($_POST['enviar'])) {
         $qtdQuarto,
         $qtdBanheiro,
         $qtdGaragem,
+        $andar,
         $cozinha,
         $sala,
         $garden,

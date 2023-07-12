@@ -99,6 +99,12 @@ if (isset($_REQUEST['qtdGaragem'])) {
 } else {
     $qtdGaragem = "";
 }
+// $andar     = $_REQUEST['andar'];
+if (isset($_REQUEST['andar'])) {
+    $andar = $_REQUEST['andar'];
+} else {
+    $andar = "";
+}
 
 
 
@@ -157,6 +163,7 @@ if (isset($_POST['atualizar'])) {
         $qtdQuarto,
         $qtdBanheiro,
         $qtdGaragem,
+        $andar,
         $cozinha,
         $sala,
         $garden,

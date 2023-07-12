@@ -279,7 +279,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
           </div>
           <p class="descricao">
             <strong>Descrição do Imóvel: </strong> <br>
-            <?php echo $value['descricao']; ?>
+            <?php echo nl2br($value['descricao']); ?>
           </p>
           <!-- aqui vai os ítens da casa -->
           <div class="container">
@@ -390,6 +390,18 @@ $dataMenorViews = $db->getImoveisMenorViews();
                   <i class="fas fa-car"></i>
                   <p>
                     <?php echo $value['garagem']; ?> Garagem
+                  </p>
+                </div>
+              <?php } ?>
+
+              <!-- andar -->
+
+              <?php if ($value['andar'] !== "") {
+                ?>
+                <div class="col-md-4 text-center item">
+                <i class="fas fa-arrows-alt-v"></i>
+                  <p>
+                    <?php echo $value['andar']; ?>º Andar
                   </p>
                 </div>
               <?php } ?>
@@ -559,7 +571,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
       <?php
 
       foreach ($dataMenorViews as $value) {
-        var_dump($value);
+        // var_dump($value);
         // criando URL
         $urlBase = "http://localhost/apartamentoavendacuiaba/";
         // $urlBase = "https://www.apartamentoavendacuiaba.com.br/";

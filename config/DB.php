@@ -217,10 +217,10 @@ class DB
     }
     // *************************************************************************
 
-    public function insertImovel($id, $cod_imovel, $titulo, $id_bairro, $id_proprietario, $valor, $valor_condominio, $iptu, $area_construida, $quartos, $banheiros, $garagem, $cozinha, $sala, $garden, $sacada, $lavanderia, $suite, $elevador, $area_lazer, $descricao, $views, $status, $data_criacao, $data_atualizacao)
+    public function insertImovel($id, $cod_imovel, $titulo, $id_bairro, $id_proprietario, $valor, $valor_condominio, $iptu, $area_construida, $quartos, $banheiros, $garagem, $andar, $cozinha, $sala, $garden, $sacada, $lavanderia, $suite, $elevador, $area_lazer, $descricao, $views, $status, $data_criacao, $data_atualizacao)
     {
-        $sql = "INSERT INTO imovel (id_imovel,cod_imovel, titulo, id_bairro, id_proprietario, valor, valor_condominio, iptu, area_construida, quartos, banheiros, garagem, cozinha, sala, garden, sacada, lavanderia, suite, elevador, area_lazer, descricao, views, status, data_criacao, data_atualizacao)
-                            VALUES (:id,:cod_imovel, :titulo, :id_bairro, :id_proprietario, :valor, :valor_condominio, :iptu, :area_construida, :quartos, :banheiros, :garagem, :cozinha, :sala, :garden, :sacada, :lavanderia, :suite, :elevador, :area_lazer, :descricao,   :views, :status, :data_criacao, :data_atualizacao)";
+        $sql = "INSERT INTO imovel (id_imovel,cod_imovel, titulo, id_bairro, id_proprietario, valor, valor_condominio, iptu, area_construida, quartos, banheiros, garagem, andar, cozinha, sala, garden, sacada, lavanderia, suite, elevador, area_lazer, descricao, views, status, data_criacao, data_atualizacao)
+                            VALUES (:id,:cod_imovel, :titulo, :id_bairro, :id_proprietario, :valor, :valor_condominio, :iptu, :area_construida, :quartos, :banheiros, :garagem, :andar, :cozinha, :sala, :garden, :sacada, :lavanderia, :suite, :elevador, :area_lazer, :descricao,   :views, :status, :data_criacao, :data_atualizacao)";
         $stmt = $this->conn->prepare($sql);
         $inserido = $stmt->execute([
 
@@ -236,6 +236,7 @@ class DB
             'quartos' => $quartos,
             'banheiros' => $banheiros,
             'garagem' => $garagem,
+            'andar' => $andar,
             'cozinha' => $cozinha,
             'sala' => $sala,
             'garden' => $garden,
@@ -1207,6 +1208,7 @@ WHERE imovel.status = 1";
         $quartos,
         $banheiros,
         $garagem,
+        $andar,
         $cozinha,
         $sala,
         $garden,
@@ -1220,7 +1222,7 @@ WHERE imovel.status = 1";
     ) {
         try {
             // Preparar a consulta SQL
-            $sql = "UPDATE imovel SET titulo = :titulo, id_bairro = :id_bairro, valor = :valor, valor_condominio = :valor_condominio, iptu = :iptu, area_construida = :area_construida, quartos = :quartos, banheiros = :banheiros, garagem = :garagem, cozinha = :cozinha, sala = :sala, garden = :garden, sacada = :sacada, lavanderia = :lavanderia, suite = :suite, elevador = :elevador, area_lazer = :area_lazer, descricao = :descricao, data_atualizacao = :data_atualizacao WHERE id_imovel = :id_imovel";
+            $sql = "UPDATE imovel SET titulo = :titulo, id_bairro = :id_bairro, valor = :valor, valor_condominio = :valor_condominio, iptu = :iptu, area_construida = :area_construida, quartos = :quartos, banheiros = :banheiros, garagem = :garagem, andar = :andar, cozinha = :cozinha, sala = :sala, garden = :garden, sacada = :sacada, lavanderia = :lavanderia, suite = :suite, elevador = :elevador, area_lazer = :area_lazer, descricao = :descricao, data_atualizacao = :data_atualizacao WHERE id_imovel = :id_imovel";
 
             // Preparar a instrução PDO
             $stmt = $this->conn->prepare($sql);
@@ -1236,6 +1238,7 @@ WHERE imovel.status = 1";
             $stmt->bindParam(':quartos', $quartos, PDO::PARAM_INT);
             $stmt->bindParam(':banheiros', $banheiros, PDO::PARAM_INT);
             $stmt->bindParam(':garagem', $garagem, PDO::PARAM_INT);
+            $stmt->bindParam(':andar', $andar, PDO::PARAM_INT);
             $stmt->bindParam(':cozinha', $cozinha, PDO::PARAM_INT);
             $stmt->bindParam(':sala', $sala, PDO::PARAM_INT);
             $stmt->bindParam(':garden', $garden, PDO::PARAM_INT);

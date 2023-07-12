@@ -125,7 +125,7 @@ $bairros = $db->getBairros();
               <!-- aqui vai os quartos -->
 
               <!-- aqui vai os quartos -->
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="quartos"> Quantos quartos possui?</label>
                 <div class="input-group input-group-lg mb-3">
                   <span class="input-group-text" id="inputGroup-sizing-lg"><i class="fas fa-bed"></i></span>
@@ -139,7 +139,7 @@ $bairros = $db->getBairros();
 
 
               <!-- aqui vai os quartos -->
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="banheiro">Quantos banheiros?</label>
                 <div class="input-group input-group-lg mb-3">
                   <span class="input-group-text" id="inputGroup-sizing-lg"><i class="fas fa-shower"></i></span>
@@ -150,12 +150,23 @@ $bairros = $db->getBairros();
               </div>
 
               <!-- aqui vai os quartos -->
-              <div class="col-md-4">
+              <div class="col-md-3">
                 <label for="area"> Quantas garagem?</label>
                 <div class="input-group input-group-lg mb-3">
                   <span class="input-group-text" id="inputGroup-sizing-lg"><i class="fas fa-car"></i></span>
 
                   <input class="text-center form-control" type="number" min="0" name="qtdGaragem" id="" placeholder="0"
+                    required>
+                </div>
+              </div>
+              <!--  -->
+              <!-- aqui vai os quartos -->
+              <div class="col-md-3">
+                <label for="area"> Qual andar?</label>
+                <div class="input-group input-group-lg mb-3">
+                  <span class="input-group-text" id="inputGroup-sizing-lg"><i class="fas fa-arrows-alt-v"></i></span>
+
+                  <input class="text-center form-control" type="number" min="0" name="andar" id="" placeholder="0"
                     required>
                 </div>
               </div>
