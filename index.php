@@ -214,16 +214,21 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
   </aside>
   <section id="imovel-main" class="imovel-main">
     <div class="container">
-      <div class="row">
+      <div class="row bg-warning mt-2">
+
+        <div class="col-md-6">
+
+
+        
+       
 
         <h2 class="resultados">
 
           <?php if (isset($_GET['enviar']) and $_GET['enviar'] == "Buscar Apartamento") {
 
-             # code...
-             echo "Total de Resultados: " . $data['registro'];
+            # code...
+            echo "Total de Resultados: " . $data['registro'];
           } else {
-           
           }
 
           ?>
@@ -279,7 +284,17 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
 
 
                 <div class="adsImg">
-                  <img class="img-fluid img-responsive img-imovel" src="<?php echo $urlBase . "app/" . ($value['url_webp'] ? $value['url_webp']  : $value['url'] ); ?>">
+                  <div class="eye">
+                    <div class="eye1"><img src="imagem/eye.png" alt="view" class="img-fluid eyeimg"></div>
+
+                    <div class="eye2"> &nbsp; <?php echo 35 + $value['views']; ?></div>
+
+
+                    <!-- <img src="imagem/eye.png" class="img-fluid img-responsive eyeimg" alt="view" >
+                     <span>  222</span> -->
+                  </div>
+
+                  <img class="img-fluid img-responsive img-imovel" src="<?php echo $urlBase . "app/" . ($value['url_webp'] ? $value['url_webp']  : $value['url']); ?>">
                 </div>
 
                 <div class="adsCenterPreco">
@@ -358,7 +373,15 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
           <?php } ?>
 
         </div>
-      </div>
+
+        </div>
+        <!-- aqui fecha os aptos -->
+
+<div class="col-md-4">
+  aqui vai todas as notícias
+</div>
+      </div> 
+      <!--aqui fecha row -->
 
     </div>
 

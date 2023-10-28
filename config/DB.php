@@ -4,6 +4,12 @@ class DB
 {
 
 
+    // private $servername = "localhost";
+    // private $username = "u258163094_db_user";
+    // private $password = "Joao1@2@3@";
+    // private $database = "u258163094_db_imoveis";
+    // private $conn;
+
     private $servername = "localhost";
     private $username = "root";
     private $password = "";
@@ -1151,7 +1157,7 @@ WHERE imovel.status = 1";
 
     // excluir imagem no editar imóvel
 
-    function deletarImagem($imagem_id, $caminho_imagem)
+    function deletarImagem($imagem_id, $caminho_imagem, $caminho_imagem1)
     {
         try {
 
@@ -1161,10 +1167,10 @@ WHERE imovel.status = 1";
             }
 
             // Consulta SQL para verificar se o ID da imagem e o caminho correspondem
-            $query = "SELECT id FROM imagem WHERE id = :id AND url = :caminho";
+            $query = "SELECT id FROM imagem WHERE id = :id";
             $stmt = $this->conn->prepare($query);
             $stmt->bindValue(':id', $imagem_id, PDO::PARAM_INT);
-            $stmt->bindValue(':caminho', $caminho_imagem, PDO::PARAM_STR);
+            // $stmt->bindValue(':caminho', $caminho_imagem, PDO::PARAM_STR);
             $stmt->execute();
 
             // Verificar se a imagem existe
@@ -1178,6 +1184,10 @@ WHERE imovel.status = 1";
                 // Excluir a imagem do diretório
                 if (file_exists($caminho_imagem)) {
                     unlink($caminho_imagem);
+                }
+                // Excluir a imagem do diretório
+                if (file_exists($caminho_imagem1)) {
+                    unlink($caminho_imagem1);
                 }
 
                 return true; // Exclusão bem-sucedida

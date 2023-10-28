@@ -1599,7 +1599,7 @@ footer {
 }
 
 .adsMainArea {
-  width: 70%;
+  width: 100%;
   background-color: #ffffff;
   margin: 0 auto;
   display: flex;
@@ -1624,7 +1624,7 @@ footer {
 }
 
 .adsCenter {
-  width: 55%;
+  width: 100%;
   /* background-color: #cba62c; */
   margin: 0;
   padding: 5px;
@@ -1639,6 +1639,62 @@ footer {
   padding: 2px;
   /* background-color: #aaaaaa; */
 }
+
+.adsImg .eye {
+  position: absolute !important;
+  z-index: 9 !important;
+  margin: 5px;
+  background: #3333339f;
+  color: white;
+  font-size: 0.7em;
+  padding: 1px 4px;
+  border-radius: 3px;
+
+  display: flex !important;
+  vertical-align: middle !important;
+  
+ 
+
+  /* height: 100px; */
+
+  /* display: flex; */
+        align-items: center;
+        justify-content: center;
+ 
+}
+
+.eye1 {
+
+  /* background: red; */
+  /* float: left; */
+  /* display: flex; */
+  vertical-align: middle !important;
+  justify-self: center !important;
+  /* height: 100px; */
+  align-items: center;
+  justify-content: center;
+}
+.eye2 {
+  
+  /* background: green; */
+  /* float: left; */
+}
+
+.eye1 .eyeimg {
+  /* vertical-align: middle !important; */
+  width: 12px !important;
+  height: 8px !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  float: left;
+  /* background: yellow; */
+  justify-self: center !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+
+
 
 .adsImg img {
   width: 100%;
@@ -2749,7 +2805,7 @@ margin: 10px 0;
 
 @media (min-width: 992px) {
   .adsMainArea {
-    width: 70%;
+    width: 100%;
     /* background-color: #7381bc; */
     margin: 0 auto;
     display: flex;
@@ -2877,7 +2933,7 @@ margin: 10px 0;
 
 @media (min-width: 1200px) {
   .adsMainArea {
-    width: 60%;
+    width: 100%;
     /* background-color: #7381bc; */
     margin: 0 auto;
     display: flex;
@@ -3005,7 +3061,7 @@ margin: 10px 0;
 
 @media (min-width: 1360px) {
   .adsMainArea {
-    width: 60%;
+    width: 100%;
     /* background-color: #7381bc; */
     margin: 0 auto;
     /* display: flex; */
