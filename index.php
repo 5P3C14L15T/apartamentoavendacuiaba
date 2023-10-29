@@ -85,14 +85,16 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="utf-8" />
+  <meta http-equiv="content-type" content="text/html;charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0" /> -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/x-icon" href="imagem/icon.png">
   <!-- metas -->
   <meta property="og:title" content="Apartamento a Venda Cuiaba" />
-  <meta property="og:description" content="Encontre os diversos apartamentos em todos os bairros de Cuiabá que estão anunciados a venda." />
+  <meta property="og:description"
+    content="Encontre os diversos apartamentos em todos os bairros de Cuiabá que estão anunciados a venda." />
   <meta property="og:url" content="https://www.apartamentoavendacuiaba.com.br" />
   <meta property="og:image" content="/imagem/somente-apto.jpg" />
 
@@ -103,7 +105,8 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
   <meta property="og:image:alt" content="" />
   <!-- CSS only -->
   <link rel="stylesheet" href="css/style.css" />
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
   <title>Apartamento a Venda Cuiabá</title>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6YEMTGPBZ"></script>
@@ -120,9 +123,9 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
 
   <!-- Meta Pixel Code -->
   <script>
-    ! function(f, b, e, v, n, t, s) {
+    ! function (f, b, e, v, n, t, s) {
       if (f.fbq) return;
-      n = f.fbq = function() {
+      n = f.fbq = function () {
         n.callMethod ?
           n.callMethod.apply(n, arguments) : n.queue.push(arguments)
       };
@@ -141,7 +144,8 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
     fbq('init', '650163389954385');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=650163389954385&ev=PageView&noscript=1" /></noscript>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=650163389954385&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
 
 </head>
@@ -168,7 +172,8 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
             <select class="form-select" name="bairro">
               <option value="" selected>Todos os bairros de Cuiabá</option>
               <?php
-              echo $bairroId;
+              // echo $bairroId;
+              echo mb_convert_encoding($bairroId, 'UTF-8', 'ISO-8859-1');;
               ?>
 
             </select>
@@ -193,7 +198,8 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
           </div>
 
           <div class="col-xl-3 col-md-3 col-sm-12 search-nivel">
-            <input type="submit" name="enviar" value="Buscar Apartamento" class="btn btn-outline-success search text-center">
+            <input type="submit" name="enviar" value="Buscar Apartamento"
+              class="btn btn-outline-success search text-center">
             <!-- 🔎 Buscar Apartamento
             </button> -->
           </div>
@@ -219,168 +225,171 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
         <div class="col-md-6">
 
 
-        
-       
-
-        <h2 class="resultados">
-
-          <?php if (isset($_GET['enviar']) and $_GET['enviar'] == "Buscar Apartamento") {
-
-            # code...
-            echo "Total de Resultados: " . $data['registro'];
-          } else {
-          }
-
-          ?>
-
-        </h2>
-
-        <!-- ITEM MOBILE FIRST -->
-        <div class="adsMain">
-          <!-- ITEM -->
-          <?php foreach ($data['resultados'] as $key => $value) {
-            # codigo
-
-            // var_dump($value);
-
-
-            // $urlAntiga = $urlBase . "single.php?codimovel=" . $value['cod_imovel'];
-            $urlAntiga = $urlBase;
-            $tituloDeImovel = $value['titulo'];
-            $codigoImovel = $value['cod_imovel'];
-            // // echo $urlAntiga;
-            // // exemplo de URL original
-            // // $url = "http://localhost/casaavendacuiaba/single.php?codimovel=20230001";
-
-            // http://localhost/casaavendacuiaba/single.php
 
 
 
-            // // obter o título do imóvel e o código do imóvel do banco de dados
-            // $titulo_imovel = $value['titulo'];
-            // $codigo_imovel = $value['cod_imovel'];
+          <h2 class="resultados">
 
-            // // transformar o título em uma string URL amigável
-            // $titulo_amigavel = strtolower($titulo_imovel);
-            // $titulo_amigavel = preg_replace('/[^a-zA-Z0-9]/', '-', $titulo_amigavel);
-            // $titulo_amigavel = trim($titulo_amigavel, '-');
+            <?php if (isset($_GET['enviar']) and $_GET['enviar'] == "Buscar Apartamento") {
 
-            // // criar a nova URL amigável
-            // $nova_url = $url . $titulo_amigavel . "-" . $codigo_imovel;
+              # code...
+              echo "Total de Resultados: " . $data['registro'];
+            } else {
+            }
 
-            // // exibir a nova URL
-            // echo $nova_url;
+            ?>
 
-            $imovelUrl = $db->criar_url_amigavel($urlAntiga, $tituloDeImovel, $codigoImovel);
+          </h2>
 
-          ?>
+          <!-- ITEM MOBILE FIRST -->
+          <div class="adsMain">
+            <!-- ITEM -->
+            <?php foreach ($data['resultados'] as $key => $value) {
+              # codigo
+            
+              // var_dump($value);
+            
+
+              // $urlAntiga = $urlBase . "single.php?codimovel=" . $value['cod_imovel'];
+              $urlAntiga = $urlBase;
+              $tituloDeImovel = $value['titulo'];
+              $codigoImovel = $value['cod_imovel'];
+              // // echo $urlAntiga;
+              // // exemplo de URL original
+              // // $url = "http://localhost/casaavendacuiaba/single.php?codimovel=20230001";
+            
+              // http://localhost/casaavendacuiaba/single.php
+            
+
+
+              // // obter o título do imóvel e o código do imóvel do banco de dados
+              // $titulo_imovel = $value['titulo'];
+              // $codigo_imovel = $value['cod_imovel'];
+            
+              // // transformar o título em uma string URL amigável
+              // $titulo_amigavel = strtolower($titulo_imovel);
+              // $titulo_amigavel = preg_replace('/[^a-zA-Z0-9]/', '-', $titulo_amigavel);
+              // $titulo_amigavel = trim($titulo_amigavel, '-');
+            
+              // // criar a nova URL amigável
+              // $nova_url = $url . $titulo_amigavel . "-" . $codigo_imovel;
+            
+              // // exibir a nova URL
+              // echo $nova_url;
+            
+              $imovelUrl = $db->criar_url_amigavel($urlAntiga, $tituloDeImovel, $codigoImovel);
+
+              ?>
 
 
 
 
-            <div class="adsMainArea my-4">
-              <!-- dividido entre imagem, titulo e preço -->
-              <a href="<?php echo $imovelUrl; ?>" target="_blank">
+              <div class="adsMainArea my-4">
+                <!-- dividido entre imagem, titulo e preço -->
+                <a href="<?php echo $imovelUrl; ?>" target="_blank">
 
 
-                <div class="adsImg">
-                  <div class="eye">
-                    <div class="eye1"><img src="imagem/eye.png" alt="view" class="img-fluid eyeimg"></div>
+                  <div class="adsImg">
+                    <div class="eye">
+                      <div class="eye1"><img src="imagem/eye.png" alt="view" class="img-fluid eyeimg"></div>
 
-                    <div class="eye2"> &nbsp; <?php echo 35 + $value['views']; ?></div>
+                      <div class="eye2"> &nbsp;
+                        <?php echo 35 + $value['views']; ?>
+                      </div>
 
 
-                    <!-- <img src="imagem/eye.png" class="img-fluid img-responsive eyeimg" alt="view" >
+                      <!-- <img src="imagem/eye.png" class="img-fluid img-responsive eyeimg" alt="view" >
                      <span>  222</span> -->
-                  </div>
-
-                  <img class="img-fluid img-responsive img-imovel" src="<?php echo $urlBase . "app/" . ($value['url_webp'] ? $value['url_webp']  : $value['url']); ?>">
-                </div>
-
-                <div class="adsCenterPreco">
-
-                  <div class="adsCenter">
-                    <div class="adsTituloArea">
-                      <div class="adsTitulo">
-                        <h1>
-                          <?php echo $value['titulo']; ?>
-                        </h1>
-                      </div>
-                      <div class="adsComponentes">
-                        <ul>
-                          <li><img src="imagem/quarto.svg" /></li>
-                          <li>
-                            <?php echo $value['quartos']; ?>
-                          </li>
-                          <li><img src="imagem/area.svg" /></li>
-                          <li>
-                            <?php echo $value['area_construida'] . "m²"; ?>
-                          </li>
-                          <li><img src="imagem/carro.svg" /></li>
-                          <li>
-                            <?php echo $value['garagem']; ?>
-                          </li>
-                          <li><img src="imagem/banheiro.svg" /></li>
-                          <li>
-                            <?php echo $value['banheiros']; ?>
-                          </li>
-                        </ul>
-
-
-                      </div>
-
-                      <div class="adsLocalizacao">
-                        <ul>
-                          <li><img src="imagem/local.svg" /></li>
-                          <li>
-                            <?php $nomeBairro = $db->buscarBairroPorId($value['id_bairro']);
-                            echo $nomeBairro['nome'];
-                            ?>
-                          </li>
-                          <li> | Postado em:
-                            <?php
-                            $timestamp = strtotime($value['incluida_em']);
-                            $data_formatada = date("d/m/Y", $timestamp);
-                            echo $data_formatada;
-                            ?>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="adsPreco">
-                    <div class="AdsPrecoValor">R$
-                      <?php
-
-                      $valorImovel = $value['valor'];
-                      $valorImovelMostrar = $valorImovel / 1;
-                      $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
-                      echo $valorImovelFormatado;
-
-                      ?>
                     </div>
 
+                    <img class="img-fluid img-responsive img-imovel"
+                      src="<?php echo $urlBase . "app/" . ($value['url_webp'] ? $value['url_webp'] : $value['url']); ?>">
                   </div>
 
-                </div>
+                  <div class="adsCenterPreco">
 
-              </a>
-            </div>
+                    <div class="adsCenter">
+                      <div class="adsTituloArea">
+                        <div class="adsTitulo">
+                          <h1>
+                            <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
+                          </h1>
+                        </div>
+                        <div class="adsComponentes">
+                          <ul>
+                            <li><img src="imagem/quarto.svg" /></li>
+                            <li>
+                              <?php echo $value['quartos']; ?>
+                            </li>
+                            <li><img src="imagem/area.svg" /></li>
+                            <li>
+                              <?php echo $value['area_construida'] . "m²"; ?>
+                            </li>
+                            <li><img src="imagem/carro.svg" /></li>
+                            <li>
+                              <?php echo $value['garagem']; ?>
+                            </li>
+                            <li><img src="imagem/banheiro.svg" /></li>
+                            <li>
+                              <?php echo $value['banheiros']; ?>
+                            </li>
+                          </ul>
+
+
+                        </div>
+
+                        <div class="adsLocalizacao">
+                          <ul>
+                            <li><img src="imagem/local.svg" /></li>
+                            <li>
+                              <?php $nomeBairro = $db->buscarBairroPorId($value['id_bairro']);
+                              echo  mb_convert_encoding($nomeBairro['nome'], 'UTF-8', 'ISO-8859-1');
+                              ?>
+                            </li>
+                            <li> | Postado em:
+                              <?php
+                              $timestamp = strtotime($value['incluida_em']);
+                              $data_formatada = date("d/m/Y", $timestamp);
+                              echo $data_formatada;
+                              ?>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="adsPreco">
+                      <div class="AdsPrecoValor">R$
+                        <?php
+
+                        $valorImovel = $value['valor'];
+                        $valorImovelMostrar = $valorImovel / 1;
+                        $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
+                        echo $valorImovelFormatado;
+
+                        ?>
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </a>
+              </div>
 
 
 
-          <?php } ?>
+            <?php } ?>
 
-        </div>
+          </div>
 
         </div>
         <!-- aqui fecha os aptos -->
 
-<div class="col-md-4">
-  aqui vai todas as notícias
-</div>
-      </div> 
+        <div class="col-md-4">
+          aqui vai todas as notícias
+        </div>
+      </div>
       <!--aqui fecha row -->
 
     </div>
@@ -442,14 +451,17 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
           </li>
         </ul>
         <h1>APARTAMENTOAVENDACUIABA.COM.BR</h1>
-        <a class="aemail" target="_blank" href="mailto:anuncie@apartamentoavendacuiaba.com.br">anuncie@apartamentoavendacuiaba.com.br</a>
+        <a class="aemail" target="_blank"
+          href="mailto:anuncie@apartamentoavendacuiaba.com.br">anuncie@apartamentoavendacuiaba.com.br</a>
         <p>&copy; Todos os Direitos Reservados</p>
       </div>
     </div>
   </footer>
 
   <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+    crossorigin="anonymous"></script>
 
 
 </body>

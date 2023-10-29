@@ -39,7 +39,7 @@ foreach ($data as $key => $value) {
 
 $db->incrementarVisita($value['id_imovel']);
 
-if(!isset($value['id_imovel'])){
+if (!isset($value['id_imovel'])) {
   header("Location: index.php");
 }
 
@@ -92,13 +92,14 @@ $dataMenorViews = $db->getImoveisMenorViews();
   <script src="https://kit.fontawesome.com/6c66823518.js" crossorigin="anonymous"></script>
 
   <title>
-    <?php echo $value['titulo'] ?>
+    <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
   </title>
 
   <meta property="og:title" content="<?php echo $value['titulo']; ?>" />
   <meta property="og:description" content="<?php echo $value['descricao']; ?>" />
   <meta property="og:url" content="<?php echo $urlCompleta; ?>" />
-  <meta property="og:image" content="./app/<?php echo  ($dataImagem[0]['url_webp'] ? $dataImagem[0]['url_webp'] : $dataImagem[0]['url']);  ?>" />
+  <meta property="og:image"
+    content="./app/<?php echo ($dataImagem[0]['url_webp'] ? $dataImagem[0]['url_webp'] : $dataImagem[0]['url']); ?>" />
 
   <meta property="og:image:secure_url" content="./app/<?php echo $dataImagem[0]['url']; ?>" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -107,33 +108,35 @@ $dataMenorViews = $db->getImoveisMenorViews();
   <meta property="og:image:alt" content="<?php echo $value['titulo']; ?>" />
 
   <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-R6YEMTGPBZ"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6YEMTGPBZ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-R6YEMTGPBZ');
+    gtag('config', 'G-R6YEMTGPBZ');
 
   </script>
   <!-- Meta Pixel Code -->
-<script>
-  !function(f,b,e,v,n,t,s)
-  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-  n.queue=[];t=b.createElement(e);t.async=!0;
-  t.src=v;s=b.getElementsByTagName(e)[0];
-  s.parentNode.insertBefore(t,s)}(window, document,'script',
-  'https://connect.facebook.net/en_US/fbevents.js');
-  fbq('init', '650163389954385');
-  fbq('track', 'PageView');
-</script>
-<noscript><img height="1" width="1" style="display:none"
-  src="https://www.facebook.com/tr?id=650163389954385&ev=PageView&noscript=1"
-/></noscript>
-<!-- End Meta Pixel Code -->
-</script>
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '650163389954385');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=650163389954385&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
+  </script>
 
 </head>
 
@@ -198,7 +201,11 @@ $dataMenorViews = $db->getImoveisMenorViews();
       <div class="titulo-preco">
 
         <div class="tituloLeft">
-          <h1 class="imovel-title" title="<?php echo $value['titulo'] ?>"><?php echo $value['titulo'] ?></h1>
+          <h1 class="imovel-title" title="<?php
+          echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
+          ?>">
+            <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
+          </h1>
           <p class="bairro-title">
             <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>
           </p>
@@ -212,7 +219,8 @@ $dataMenorViews = $db->getImoveisMenorViews();
             $valorImovelMostrar = $valorImovel;
             $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
             echo " " . $valorImovelFormatado;
-            ?></h2>
+            ?>
+          </h2>
           <small>Condomínio:
             <?php
 
@@ -256,7 +264,8 @@ $dataMenorViews = $db->getImoveisMenorViews();
                         $set_ = '';
                       } ?>
                       <div class='carousel-item <?php echo $set_; ?>'>
-                        <img src='<?php echo "./app/" .  ($row['url_webp'] ? $row['url_webp']  : $row['url']); ?>' class='d-block w-100'>
+                        <img src='<?php echo "./app/" . ($row['url_webp'] ? $row['url_webp'] : $row['url']); ?>'
+                          class='d-block w-100'>
                       </div>
                       <?php $i++;
                     endforeach ?>
@@ -279,7 +288,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
           </div>
           <p class="descricao">
             <strong>Descrição do Imóvel: </strong> <br>
-            <?php echo nl2br($value['descricao']); ?>
+            <?php echo mb_convert_encoding(nl2br($value['descricao']), 'UTF-8', 'ISO-8859-1'); ?>
           </p>
           <!-- aqui vai os ítens da casa -->
           <div class="container">
@@ -399,7 +408,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <?php if ($value['andar'] !== "") {
                 ?>
                 <div class="col-md-4 text-center item">
-                <i class="fas fa-arrows-alt-v"></i>
+                  <i class="fas fa-arrows-alt-v"></i>
                   <p>
                     <?php echo $value['andar']; ?>º Andar
                   </p>
@@ -483,13 +492,12 @@ $dataMenorViews = $db->getImoveisMenorViews();
         <div class="info-corretor">
           <header>
             <img src="<?php
-            $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg" ;
-                echo $retVal;
-            ?>" alt="Anunciante"
-              class="profile-thumbnail" />
+            $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg";
+            echo $retVal;
+            ?>" alt="Anunciante" class="profile-thumbnail" />
             <div class="profile-name">
               <h3>
-                <?php echo $value['nome_user'] ?>
+                <?php echo mb_convert_encoding($value['nome_user'], 'UTF-8', 'ISO-8859-1');  ?>
               </h3>
               <h4>Anunciante</h4>
               <h5>WhatsApp:
@@ -499,7 +507,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
           </header>
           <div id="inner">
             <p>
-              <?php echo $value['descricao_user'] ?>
+              <?php echo mb_convert_encoding($value['descricao_user'], 'UTF-8', 'ISO-8859-1');  ?>
             </p>
             <!-- <span class="creci">CRECI-MT 12130 F</span> -->
             <hr />
@@ -540,19 +548,20 @@ $dataMenorViews = $db->getImoveisMenorViews();
 
         <?php
         $urlEncaminha = "https://api.whatsapp.com/send?text=";
-    $urlEncaminha .= "🏢 *" . $value['titulo'] . "* %0A%0A";
-    $urlEncaminha .= "💰```Valor: R$" . number_format($value['valor'],2,',','.') . "```%0A";
-    $urlEncaminha .= "📍```Bairro: " . $value['nome'] . "```%0A";
-    $urlEncaminha .= "⏹```Quartos: " . $value['quartos'] . "```%0A";
-    $urlEncaminha .= "📐```Área: " . $value['area_construida'] .  "m²```%0A%0A";
-    $urlEncaminha .= "Vi esse imóvel no site: *APARTAMENTOAVENDACUIABA*: %0A"
-    . "https://www.apartamentoavendacuiaba.com.br". $urlCompleta;
+        $urlEncaminha .= "🏢 *" . $value['titulo'] . "* %0A%0A";
+        $urlEncaminha .= "💰```Valor: R$" . number_format($value['valor'], 2, ',', '.') . "```%0A";
+        $urlEncaminha .= "📍```Bairro: " . $value['nome'] . "```%0A";
+        $urlEncaminha .= "⏹```Quartos: " . $value['quartos'] . "```%0A";
+        $urlEncaminha .= "📐```Área: " . $value['area_construida'] . "m²```%0A%0A";
+        $urlEncaminha .= "Vi esse imóvel no site: *APARTAMENTOAVENDACUIABA*: %0A"
+          . "https://www.apartamentoavendacuiaba.com.br" . $urlCompleta;
 
-?>
+        ?>
 
 
-      
-        <a href="<?php echo $urlEncaminha;?>" class="shareImovel mt-4"><i class="fab fa-whatsapp"></i> Compartilhar este imóvel</a>
+
+        <a href="<?php echo $urlEncaminha; ?>" class="shareImovel mt-4"><i class="fab fa-whatsapp"></i> Compartilhar este
+          imóvel</a>
 
       </div>
     </div>
@@ -575,42 +584,42 @@ $dataMenorViews = $db->getImoveisMenorViews();
         // criando URL
         $urlBase = "http://localhost/apartamentoavendacuiaba/";
         // $urlBase = "https://www.apartamentoavendacuiaba.com.br/";
-$urlAntiga = $urlBase;
-$tituloDeImovel = $value['titulo'];
-$codigoImovel = $value['cod_imovel'];
+        $urlAntiga = $urlBase;
+        $tituloDeImovel = $value['titulo'];
+        $codigoImovel = $value['cod_imovel'];
 
 
-$imovelUrl = $db->criar_url_amigavel($urlAntiga, $tituloDeImovel, $codigoImovel);
+        $imovelUrl = $db->criar_url_amigavel($urlAntiga, $tituloDeImovel, $codigoImovel);
 
-// var_dump($imovelUrl);
+        // var_dump($imovelUrl);
         ?>
 
         <div class="col-md-3 outrosImoveisCard my-2">
           <div class="card">
-            <?php 
-            $imagemOutros = ($value['segunda_imagem'] ? $value['segunda_imagem'] : $value['primeira_imagem_url'] );
+            <?php
+            $imagemOutros = ($value['segunda_imagem'] ? $value['segunda_imagem'] : $value['primeira_imagem_url']);
 
             ?>
             <img src="<?php echo "app/" . $imagemOutros ?>" class="card-img-top" alt="...">
             <div class="card-body">
               <h5 class="card-title">
-                <?php echo $value['titulo']; ?>
+                <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
               </h5>
               <!-- <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p> -->
             </div>
             <ul class="list-group list-group-flush">
               <li class="list-group-item">
-                <?php echo  "Quartos " . $value['quartos']; ?>
+                <?php echo "Quartos " . $value['quartos']; ?>
               </li>
               <li class="list-group-item">
-                <?php echo "Bairro " . $value['nome_bairro']; ?>
+                <?php echo "Bairro " .  mb_convert_encoding($value['nome_bairro'], 'UTF-8', 'ISO-8859-1'); ?>
               </li>
               <li class="list-group-item">
                 <?php echo "Valor R$" . number_format($value['valor'], 2, ",", "."); ?>
               </li>
             </ul>
             <div class="card-body">
-              <a href="<?php echo $imovelUrl  ;?>" target="_new" class=" btn btn-success w-100">Ver Imóvel</a>
+              <a href="<?php echo $imovelUrl; ?>" target="_new" class=" btn btn-success w-100">Ver Imóvel</a>
             </div>
           </div>
         </div>
@@ -636,7 +645,8 @@ $imovelUrl = $db->criar_url_amigavel($urlAntiga, $tituloDeImovel, $codigoImovel)
           </li>
         </ul>
         <h1>APARTAMENTOAVENDACUIABA.COM.BR</h1>
-        <a class="aemail" target="_blank" href="mailto:anuncie@apartamentoavendacuiaba.com.br">anuncie@apartamentoavendacuiaba.com.br</a>
+        <a class="aemail" target="_blank"
+          href="mailto:anuncie@apartamentoavendacuiaba.com.br">anuncie@apartamentoavendacuiaba.com.br</a>
         <p>&copy; Todos os Direitos Reservados</p>
       </div>
     </div>
