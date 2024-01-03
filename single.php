@@ -508,6 +508,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
           <div id="inner">
             <p>
               <?php echo mb_convert_encoding($value['descricao_user'], 'UTF-8', 'ISO-8859-1');  ?>
+              
             </p>
             <!-- <span class="creci">CRECI-MT 12130 F</span> -->
             <hr />

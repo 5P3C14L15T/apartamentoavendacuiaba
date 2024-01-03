@@ -796,7 +796,7 @@ WHERE imovel.status = 1";
         $nova_url = "{$url_sem_barra}/{$titulo_sem_espacos}-{$codigo}";
 
         // Retorna a nova URL
-        return $nova_url;
+        return strtolower($nova_url);
     }
 
     function buscarImovel($cod_imovel)
