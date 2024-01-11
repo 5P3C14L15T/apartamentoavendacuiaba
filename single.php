@@ -12,7 +12,6 @@ $urlCompleta = $url;
 // echo "<br>";
 
 
-
 $string = $url;
 $last_hyphen_pos = strrpos($string, "-");
 $code = substr($string, $last_hyphen_pos + 1);
@@ -25,7 +24,6 @@ if (isset($code)) {
   // echo "</pre>";
 
 }
-
 
 
 foreach ($data as $key => $value) {
@@ -54,7 +52,6 @@ $dataImagem = $db->getImageByIdImovel($value['id_imovel']);
 //   echo "</pre>";
 
 
-
 foreach ($dataImagem as $keyImagem => $valueImagem) {
   # code...
   // echo "<pre>";
@@ -71,8 +68,6 @@ $dataMenorViews = $db->getImoveisMenorViews();
 // echo "</pre>";
 
 
-
-
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -87,8 +82,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/single.css" />
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
   <script src="https://kit.fontawesome.com/6c66823518.js" crossorigin="anonymous"></script>
 
   <title>
@@ -98,8 +92,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
   <meta property="og:title" content="<?php echo $value['titulo']; ?>" />
   <meta property="og:description" content="<?php echo $value['descricao']; ?>" />
   <meta property="og:url" content="<?php echo $urlCompleta; ?>" />
-  <meta property="og:image"
-    content="./app/<?php echo ($dataImagem[0]['url_webp'] ? $dataImagem[0]['url_webp'] : $dataImagem[0]['url']); ?>" />
+  <meta property="og:image" content="./app/<?php echo ($dataImagem[0]['url_webp'] ? $dataImagem[0]['url_webp'] : $dataImagem[0]['url']); ?>" />
 
   <meta property="og:image:secure_url" content="./app/<?php echo $dataImagem[0]['url']; ?>" />
   <meta property="og:image:type" content="image/jpeg" />
@@ -111,30 +104,38 @@ $dataMenorViews = $db->getImoveisMenorViews();
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-R6YEMTGPBZ"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
     gtag('js', new Date());
 
     gtag('config', 'G-R6YEMTGPBZ');
-
   </script>
   <!-- Meta Pixel Code -->
   <script>
-    !function (f, b, e, v, n, t, s) {
-      if (f.fbq) return; n = f.fbq = function () {
+    ! function(f, b, e, v, n, t, s) {
+      if (f.fbq) return;
+      n = f.fbq = function() {
         n.callMethod ?
-        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+          n.callMethod.apply(n, arguments) : n.queue.push(arguments)
       };
-      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
-      n.queue = []; t = b.createElement(e); t.async = !0;
-      t.src = v; s = b.getElementsByTagName(e)[0];
+      if (!f._fbq) f._fbq = n;
+      n.push = n;
+      n.loaded = !0;
+      n.version = '2.0';
+      n.queue = [];
+      t = b.createElement(e);
+      t.async = !0;
+      t.src = v;
+      s = b.getElementsByTagName(e)[0];
       s.parentNode.insertBefore(t, s)
     }(window, document, 'script',
       'https://connect.facebook.net/en_US/fbevents.js');
     fbq('init', '650163389954385');
     fbq('track', 'PageView');
   </script>
-  <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=650163389954385&ev=PageView&noscript=1" /></noscript>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=650163389954385&ev=PageView&noscript=1" /></noscript>
   <!-- End Meta Pixel Code -->
   </script>
 
@@ -147,7 +148,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
       <div class="container">
         <div class="logo">
           <a href="./">
-            <img src="imagem/logo.png" class="img-fluid logo-img" alt="" srcset="" />
+            <img src="imagem/logo.png" class="img-fluid logo-img" alt="" />
           </a>
         </div>
       </div>
@@ -196,14 +197,199 @@ $dataMenorViews = $db->getImoveisMenorViews();
     </div>
   </div> -->
   <div class="container py-5">
+    <div class="row">
+      <a href="index.php" target="_blank" class="voltar"><i class="fas fa-home"></i> Voltar > Inicial</a>
+      <div class="titulo-preco">
+
+        <div class="tituloLeft">
+          <h1 class="imovel-title" title="<?php
+                                          echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
+                                          ?>">
+            <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
+          </h1>
+          <p class="bairro-title">
+            <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>
+          </p>
+        </div>
+
+        <div class="precoRight">
+          <h2 class="imovel-valor" title="<?php echo $value['valor'] ?>">R$
+            <?php
+
+            $valorImovel = $value['valor'];
+            $valorImovelMostrar = $valorImovel;
+            $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
+            echo " " . $valorImovelFormatado;
+            ?>
+          </h2>
+          <small>Condomínio:
+            <?php
+
+            $valorCond = $value['valor_condominio'];
+            $valorCondMostrar = $valorCond;
+            $valorCondFormatado = number_format($valorCondMostrar, 2, ",", ".");
+            echo "" . $valorCondFormatado;
+
+            ?>
+          </small><br>
+          <small>IPTU:
+            <?php
+
+            $valorIptu = $value['iptu'];
+            $valorIptuMostrar = $valorIptu;
+            $valorIptuFormatado = number_format($valorIptuMostrar, 2, ",", ".");
+            echo "" . $valorIptuFormatado;
+            ?>
+          </small>
+        </div>
+
+      </div>
+      <div class="col-md-9">
+        <div class="row">
+          <div class="col-md-6">
+            <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
+          </div>
+          <div class="col-md-6">
+            <div class="row">
+              <div class="col-md-6"> <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset=""></div>
+              <div class="col-md-6"> <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset=""></div>
+              <div class="col-md-6"> <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset=""></div>
+              <div class="col-md-6"> <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset=""></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3 p-0">
+      <div class="col-sm-12 col-md-12 info-corretor-main p-0">
+
+<!-- mensagem -->
+<div class="mensagem-corretor p-0">
+
+
+  <form action="whatsapp.php" method="POST">
+    <div class="form-header">
+      <h3>Chamar anunciante no WhatsApp</h3>
+    </div>
+    <div class="form-body">
+      <p class="aviso-form">Preencha corretamente para poder falar direto com o anunciante deste imóvel pelo
+        whatsapp</p>
+
+      <legend>Seu Nome <small class="text-secondary">(insira seu nome)</small></legend>
+      <input class="form-control form-control-lg" id="nome" name="nomeLead" type="text" placeholder="Qual o seu nome?" required>
+      <legend>Seu WhatsApp <small class="text-secondary">(preencha somente os números)</small></legend>
+      <input class="form-control form-control-lg" maxlength="15" id="telefone" name="whatsappLead" type="text" placeholder="(65) 99999-9999" required>
+      <!-- inputs data -->
+
+      <input type="hidden" name="titulo" value="<?php echo $value['titulo']; ?> ">
+      <input type="hidden" name="valor" value="<?php echo $value['valor']; ?> ">
+      <input type="hidden" name="bairroNome" value="<?php echo $value['nome']; ?> ">
+      <input type="hidden" name="whatsapp" value="<?php echo $value['whatsapp']; ?> ">
+      <input type="hidden" name="url" value="<?php echo $urlCompleta ?> ">
+      <input type="hidden" name="quarto" value="<?php echo $value['quartos']; ?> ">
+      <input type="hidden" name="area" value="<?php echo $value['area_construida']; ?> ">
+
+
+
+
+      <div class="d-grid mt-4">
+        <input class="botao-zap" onclick="saveData()" type="submit" name="enviar" value="Chamar no WhatsApp">
+      </div>
+    </div>
+  </form>
+</div>
+<!-- /mensagem -->
+
+<div class="info-corretor">
+  <header>
+    <img src="<?php
+              $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg";
+              echo $retVal;
+              ?>" alt="Anunciante" class="profile-thumbnail" />
+    <div class="profile-name">
+      <h3>
+        <?php echo mb_convert_encoding($value['nome_user'], 'UTF-8', 'ISO-8859-1');  ?>
+      </h3>
+      <h4>Anunciante</h4>
+      <h5>WhatsApp:
+        <?php echo $value['whatsapp']; ?>
+      </h5>
+    </div>
+  </header>
+  <div id="inner">
+    <p>
+      <?php echo mb_convert_encoding($value['descricao_user'], 'UTF-8', 'ISO-8859-1');  ?>
+
+    </p>
+    <!-- <span class="creci">CRECI-MT 12130 F</span> -->
+    <hr />
+  </div>
+  <footer>
+    <div class="stats">
+
+      <?php if ($value['ig'] !== "") {
+      ?>
+        <div class="Retweets">
+          <a href="<?php echo $value['ig']; ?>" target="_new"> <i class="fa fa-instagram"></i></a>
+        </div>
+      <?php } ?>
+
+      <?php if ($value['fb'] !== "") {
+      ?>
+        <div class="Retweets">
+          <a href="<?php echo $value['fb']; ?>" target="_new"> <i class="fa fa-facebook-square"></i></a>
+        </div>
+      <?php } ?>
+
+      <?php if ($value['linkedin'] !== "") {
+      ?>
+        <div class="Retweets">
+          <a href="<?php echo $value['linkedin']; ?>" target="_new"> <i class="fab fa-linkedin"></i></a>
+        </div>
+      <?php } ?>
+
+      <?php if ($value['site'] !== "") {
+      ?>
+        <div class="Retweets">
+          <a href="<?php echo $value['site']; ?>" target="_new"> <i class="fas fa-sitemap"></i></a>
+        </div>
+      <?php } ?>
+    </div>
+  </footer>
+</div>
+
+<?php
+$urlEncaminha = "https://api.whatsapp.com/send?text=";
+$urlEncaminha .= "🏢 *" . $value['titulo'] . "* %0A%0A";
+$urlEncaminha .= "💰```Valor: R$" . number_format($value['valor'], 2, ',', '.') . "```%0A";
+$urlEncaminha .= "📍```Bairro: " . $value['nome'] . "```%0A";
+$urlEncaminha .= "⏹```Quartos: " . $value['quartos'] . "```%0A";
+$urlEncaminha .= "📐```Área: " . $value['area_construida'] . "m²```%0A%0A";
+$urlEncaminha .= "Vi esse imóvel no site: *APARTAMENTOAVENDACUIABA*: %0A"
+  . "https://www.apartamentoavendacuiaba.com.br" . $urlCompleta;
+
+?>
+
+
+
+<a href="<?php echo $urlEncaminha; ?>" class="shareImovel mt-4"><i class="fab fa-whatsapp"></i> Compartilhar este
+  imóvel</a>
+
+</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- final nova container -->
+
+  <div class="container py-5">
     <div class="row col-md-10 mx-auto">
       <a href="index.php" target="_blank" class="voltar"><i class="fas fa-home"></i> Voltar > Inicial</a>
       <div class="titulo-preco">
 
         <div class="tituloLeft">
           <h1 class="imovel-title" title="<?php
-          echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
-          ?>">
+                                          echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
+                                          ?>">
             <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
           </h1>
           <p class="bairro-title">
@@ -257,27 +443,24 @@ $dataMenorViews = $db->getImoveisMenorViews();
 
 
                     <?php $i = 0;
-                    foreach ($dataImagem as $row): ?>
+                    foreach ($dataImagem as $row) : ?>
                       <?php if ($i == 0) {
                         $set_ = 'active';
                       } else {
                         $set_ = '';
                       } ?>
                       <div class='carousel-item <?php echo $set_; ?>'>
-                        <img src='<?php echo "./app/" . ($row['url_webp'] ? $row['url_webp'] : $row['url']); ?>'
-                          class='d-block w-100'>
+                        <img src='<?php echo "./app/" . ($row['url_webp'] ? $row['url_webp'] : $row['url']); ?>' class='d-block w-100'>
                       </div>
-                      <?php $i++;
+                    <?php $i++;
                     endforeach ?>
 
                   </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="prev">
+                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Anterior</span>
                   </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators"
-                    data-bs-slide="next">
+                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
                     <span class="visually-hidden">Próxima</span>
                   </button>
@@ -303,7 +486,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               </div>
 
               <?php if ($value['suite'] == "") {
-                ?>
+              ?>
 
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-bath"></i>
@@ -314,7 +497,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
 
               <!-- sala -->
               <?php if ($value['sala'] == 1) {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-tv"></i>
                   <p>
@@ -328,7 +511,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <!-- cozinha -->
 
               <?php if ($value['cozinha'] == 1) {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-utensil-spoon"></i>
                   <p>
@@ -341,7 +524,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <!-- lavanderia -->
 
               <?php if ($value['lavanderia'] == 1) {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-tshirt"></i>
                   <p>
@@ -354,7 +537,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <!-- sacada -->
 
               <?php if ($value['sacada'] == 1) {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-building"></i>
                   <p>
@@ -369,7 +552,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <!-- banheiro social -->
 
               <?php if ($value['banheiros'] !== "") {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-shower"></i>
                   <p>
@@ -381,7 +564,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <!-- elevador -->
 
               <?php if ($value['elevador'] == 1) {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-chevron-circle-up"></i>
                   <p>
@@ -394,7 +577,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <!-- garagem -->
 
               <?php if ($value['garagem'] !== "") {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-car"></i>
                   <p>
@@ -406,7 +589,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <!-- andar -->
 
               <?php if ($value['andar'] !== "") {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-arrows-alt-v"></i>
                   <p>
@@ -420,7 +603,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <!-- area de lazer -->
 
               <?php if ($value['area_lazer'] == 1) {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-swimming-pool"></i>
                   <p>
@@ -432,7 +615,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
               <!-- area construída -->
 
               <?php if ($value['area_construida'] !== "") {
-                ?>
+              ?>
                 <div class="col-md-4 text-center item">
                   <i class="fas fa-ruler-combined"></i>
                   <p>Área:
@@ -463,11 +646,9 @@ $dataMenorViews = $db->getImoveisMenorViews();
                 whatsapp</p>
 
               <legend>Seu Nome <small class="text-secondary">(insira seu nome)</small></legend>
-              <input class="form-control form-control-lg" id="nome" name="nomeLead" type="text"
-                placeholder="Qual o seu nome?" required>
+              <input class="form-control form-control-lg" id="nome" name="nomeLead" type="text" placeholder="Qual o seu nome?" required>
               <legend>Seu WhatsApp <small class="text-secondary">(preencha somente os números)</small></legend>
-              <input class="form-control form-control-lg" maxlength="15" id="telefone" name="whatsappLead" type="text"
-                placeholder="(65) 99999-9999" required>
+              <input class="form-control form-control-lg" maxlength="15" id="telefone" name="whatsappLead" type="text" placeholder="(65) 99999-9999" required>
               <!-- inputs data -->
 
               <input type="hidden" name="titulo" value="<?php echo $value['titulo']; ?> ">
@@ -492,9 +673,9 @@ $dataMenorViews = $db->getImoveisMenorViews();
         <div class="info-corretor">
           <header>
             <img src="<?php
-            $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg";
-            echo $retVal;
-            ?>" alt="Anunciante" class="profile-thumbnail" />
+                      $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg";
+                      echo $retVal;
+                      ?>" alt="Anunciante" class="profile-thumbnail" />
             <div class="profile-name">
               <h3>
                 <?php echo mb_convert_encoding($value['nome_user'], 'UTF-8', 'ISO-8859-1');  ?>
@@ -508,7 +689,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
           <div id="inner">
             <p>
               <?php echo mb_convert_encoding($value['descricao_user'], 'UTF-8', 'ISO-8859-1');  ?>
-              
+
             </p>
             <!-- <span class="creci">CRECI-MT 12130 F</span> -->
             <hr />
@@ -517,28 +698,28 @@ $dataMenorViews = $db->getImoveisMenorViews();
             <div class="stats">
 
               <?php if ($value['ig'] !== "") {
-                ?>
+              ?>
                 <div class="Retweets">
                   <a href="<?php echo $value['ig']; ?>" target="_new"> <i class="fa fa-instagram"></i></a>
                 </div>
               <?php } ?>
 
               <?php if ($value['fb'] !== "") {
-                ?>
+              ?>
                 <div class="Retweets">
                   <a href="<?php echo $value['fb']; ?>" target="_new"> <i class="fa fa-facebook-square"></i></a>
                 </div>
               <?php } ?>
 
               <?php if ($value['linkedin'] !== "") {
-                ?>
+              ?>
                 <div class="Retweets">
                   <a href="<?php echo $value['linkedin']; ?>" target="_new"> <i class="fab fa-linkedin"></i></a>
                 </div>
               <?php } ?>
 
               <?php if ($value['site'] !== "") {
-                ?>
+              ?>
                 <div class="Retweets">
                   <a href="<?php echo $value['site']; ?>" target="_new"> <i class="fas fa-sitemap"></i></a>
                 </div>
@@ -593,7 +774,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
         $imovelUrl = $db->criar_url_amigavel($urlAntiga, $tituloDeImovel, $codigoImovel);
 
         // var_dump($imovelUrl);
-        ?>
+      ?>
 
         <div class="col-md-3 outrosImoveisCard my-2">
           <div class="card">
@@ -625,7 +806,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
           </div>
         </div>
 
-        <?php
+      <?php
 
       }
 
@@ -646,20 +827,16 @@ $dataMenorViews = $db->getImoveisMenorViews();
           </li>
         </ul>
         <h1>APARTAMENTOAVENDACUIABA.COM.BR</h1>
-        <a class="aemail" target="_blank"
-          href="mailto:anuncie@apartamentoavendacuiaba.com.br">anuncie@apartamentoavendacuiaba.com.br</a>
+        <a class="aemail" target="_blank" href="mailto:anuncie@apartamentoavendacuiaba.com.br">anuncie@apartamentoavendacuiaba.com.br</a>
         <p>&copy; Todos os Direitos Reservados</p>
       </div>
     </div>
   </footer>
 
   <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 
   <script>
-
     // Função para salvar os dados no LocalStorage e aplicar a máscara
     function saveData() {
       var nome = document.getElementById('nome').value;
@@ -672,7 +849,7 @@ $dataMenorViews = $db->getImoveisMenorViews();
     }
 
     // Restaurar os dados do LocalStorage ao carregar a página e aplicar a máscara
-    window.onload = function () {
+    window.onload = function() {
       var nome = localStorage.getItem('nome');
       var telefone = localStorage.getItem('telefone');
 
@@ -709,10 +886,9 @@ $dataMenorViews = $db->getImoveisMenorViews();
     }
 
     // Aplicar a máscara ao digitar no campo de telefone
-    id('telefone').onkeyup = function () {
+    id('telefone').onkeyup = function() {
       mascara(this, mtel);
     }
-
   </script>
 
 </body>
