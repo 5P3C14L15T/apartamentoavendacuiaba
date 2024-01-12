@@ -427,7 +427,7 @@ input {
 }
 
 .item i {
-  color: ;
+
   margin-left: 12px !important;
   /* float: left !important; */
   /* background: green; */
@@ -595,6 +595,8 @@ input {
 
   }
 
+ 
+
 }
 @media (min-width: 1200px) {
   .tituloLeft {
@@ -603,6 +605,28 @@ input {
     margin: 0;
     padding: 10px;
 
+  }
+
+}
+@media (max-width: 992px) {
+  .galeria-main {
+    display: none !important;
+  
+  }
+
+  .carrossel-main {
+    display: block !important;
+  }
+
+}
+@media (min-width: 992px) {
+  .galeria-main {
+    display: block !important;
+  
+  }
+
+  .carrossel-main {
+    display: none !important;
   }
 
 }

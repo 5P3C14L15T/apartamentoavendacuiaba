@@ -47,9 +47,9 @@ if (!isset($value['id_imovel'])) {
 
 $dataImagem = $db->getImageByIdImovel($value['id_imovel']);
 
-// echo "<pre>";
-//   print_r($dataImagem[0]['url']);
-//   echo "</pre>";
+echo "<pre>";
+print_r($dataImagem[0]['url']);
+echo "</pre>";
 
 
 foreach ($dataImagem as $keyImagem => $valueImagem) {
@@ -81,9 +81,16 @@ $dataMenorViews = $db->getImoveisMenorViews();
   <!-- CSS only -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/single.css" />
-
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous" />
   <script src="https://kit.fontawesome.com/6c66823518.js" crossorigin="anonymous"></script>
+
+
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css" />
+  <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css" />
+
+
+
 
   <title>
     <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
@@ -197,185 +204,251 @@ $dataMenorViews = $db->getImoveisMenorViews();
     </div>
   </div> -->
   <div class="container py-5">
-    <div class="row">
-      <a href="index.php" target="_blank" class="voltar"><i class="fas fa-home"></i> Voltar > Inicial</a>
-      <div class="titulo-preco">
+    <div class="row bg-dark">
+      <a href="index.php" target="_blank" class="voltar w-100 mb-3"><i class="fas fa-home"></i> Voltar > Inicial</a>
 
-        <div class="tituloLeft">
-          <h1 class="imovel-title" title="<?php
-                                          echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
-                                          ?>">
-            <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
-          </h1>
-          <p class="bairro-title">
-            <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>
-          </p>
-        </div>
 
-        <div class="precoRight">
-          <h2 class="imovel-valor" title="<?php echo $value['valor'] ?>">R$
-            <?php
-
-            $valorImovel = $value['valor'];
-            $valorImovelMostrar = $valorImovel;
-            $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
-            echo " " . $valorImovelFormatado;
-            ?>
-          </h2>
-          <small>Condomínio:
-            <?php
-
-            $valorCond = $value['valor_condominio'];
-            $valorCondMostrar = $valorCond;
-            $valorCondFormatado = number_format($valorCondMostrar, 2, ",", ".");
-            echo "" . $valorCondFormatado;
-
-            ?>
-          </small><br>
-          <small>IPTU:
-            <?php
-
-            $valorIptu = $value['iptu'];
-            $valorIptuMostrar = $valorIptu;
-            $valorIptuFormatado = number_format($valorIptuMostrar, 2, ",", ".");
-            echo "" . $valorIptuFormatado;
-            ?>
-          </small>
-        </div>
-
-      </div>
-      <div class="col-md-9">
+      <div class="col-lg-9 galeria-main">
         <div class="row">
-          <div class="col-md-6">
-            <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
+          <div class="col-lg-6">
+            <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 1">
+              <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
+            </a>
           </div>
-          <div class="col-md-6">
+          <div class="col-lg-6">
             <div class="row">
-              <div class="col-md-6"> <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset=""></div>
-              <div class="col-md-6"> <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset=""></div>
-              <div class="col-md-6"> <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset=""></div>
-              <div class="col-md-6"> <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset=""></div>
+              <div class="col-lg-6">
+                <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 2">
+                  <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
+                </a>
+              </div>
+              <div class="col-lg-6">
+                <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 3">
+                  <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
+                </a>
+              </div>
+              <div class="col-lg-6 mt-4">
+                <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 2">
+                  <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
+                </a>
+              </div>
+              <div class="col-lg-6 mt-4">
+                <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 3">
+                  <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
+                </a>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
-      <div class="col-md-3 p-0">
-      <div class="col-sm-12 col-md-12 info-corretor-main p-0">
 
-<!-- mensagem -->
-<div class="mensagem-corretor p-0">
+      <div class="col-lg-9 carrossel-main">
+        <div class="car-main">
+          <div class="gallery col-md-12 col-sm-12 mx-auto">
+            <div class="row">
+              <!-- slider -->
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 
-
-  <form action="whatsapp.php" method="POST">
-    <div class="form-header">
-      <h3>Chamar anunciante no WhatsApp</h3>
-    </div>
-    <div class="form-body">
-      <p class="aviso-form">Preencha corretamente para poder falar direto com o anunciante deste imóvel pelo
-        whatsapp</p>
-
-      <legend>Seu Nome <small class="text-secondary">(insira seu nome)</small></legend>
-      <input class="form-control form-control-lg" id="nome" name="nomeLead" type="text" placeholder="Qual o seu nome?" required>
-      <legend>Seu WhatsApp <small class="text-secondary">(preencha somente os números)</small></legend>
-      <input class="form-control form-control-lg" maxlength="15" id="telefone" name="whatsappLead" type="text" placeholder="(65) 99999-9999" required>
-      <!-- inputs data -->
-
-      <input type="hidden" name="titulo" value="<?php echo $value['titulo']; ?> ">
-      <input type="hidden" name="valor" value="<?php echo $value['valor']; ?> ">
-      <input type="hidden" name="bairroNome" value="<?php echo $value['nome']; ?> ">
-      <input type="hidden" name="whatsapp" value="<?php echo $value['whatsapp']; ?> ">
-      <input type="hidden" name="url" value="<?php echo $urlCompleta ?> ">
-      <input type="hidden" name="quarto" value="<?php echo $value['quartos']; ?> ">
-      <input type="hidden" name="area" value="<?php echo $value['area_construida']; ?> ">
+                <div class="carousel-inner">
 
 
+                  <?php $i = 0;
+                  foreach ($dataImagem as $row) : ?>
+                    <?php if ($i == 0) {
+                      $set_ = 'active';
+                    } else {
+                      $set_ = '';
+                    } ?>
+                    <div class='carousel-item <?php echo $set_; ?>'>
+                      <img src='<?php echo "./app/" . ($row['url_webp'] ? $row['url_webp'] : $row['url']); ?>' class='d-block w-100'>
+                    </div>
+                  <?php $i++;
+                  endforeach ?>
 
-
-      <div class="d-grid mt-4">
-        <input class="botao-zap" onclick="saveData()" type="submit" name="enviar" value="Chamar no WhatsApp">
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Anterior</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Próxima</span>
+                </button>
+              </div>
+              <!-- /slider -->
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
-  </form>
-</div>
-<!-- /mensagem -->
 
-<div class="info-corretor">
-  <header>
-    <img src="<?php
-              $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg";
-              echo $retVal;
-              ?>" alt="Anunciante" class="profile-thumbnail" />
-    <div class="profile-name">
-      <h3>
-        <?php echo mb_convert_encoding($value['nome_user'], 'UTF-8', 'ISO-8859-1');  ?>
-      </h3>
-      <h4>Anunciante</h4>
-      <h5>WhatsApp:
-        <?php echo $value['whatsapp']; ?>
-      </h5>
-    </div>
-  </header>
-  <div id="inner">
-    <p>
-      <?php echo mb_convert_encoding($value['descricao_user'], 'UTF-8', 'ISO-8859-1');  ?>
+      <div class="col-lg-3 p-0 bg-dark">
+        <div class="col-sm-12 col-lg-12 info-corretor-main p-0">
 
-    </p>
-    <!-- <span class="creci">CRECI-MT 12130 F</span> -->
-    <hr />
-  </div>
-  <footer>
-    <div class="stats">
+          <!-- mensagem -->
+          <div class="mensagem-corretor p-0">
 
-      <?php if ($value['ig'] !== "") {
-      ?>
-        <div class="Retweets">
-          <a href="<?php echo $value['ig']; ?>" target="_new"> <i class="fa fa-instagram"></i></a>
+
+            <form action="whatsapp.php" method="POST">
+              <div class="form-header">
+                <h3>Chamar anunciante no WhatsApp</h3>
+              </div>
+              <div class="form-body">
+                <p class="aviso-form">Preencha corretamente para poder falar direto com o anunciante deste imóvel pelo
+                  whatsapp</p>
+
+                <legend>Seu Nome <small class="text-secondary">(insira seu nome)</small></legend>
+                <input class="form-control form-control-lg" id="nome" name="nomeLead" type="text" placeholder="Qual o seu nome?" required>
+                <legend>Seu WhatsApp <small class="text-secondary">(preencha somente os números)</small></legend>
+                <input class="form-control form-control-lg" maxlength="15" id="telefone" name="whatsappLead" type="text" placeholder="(65) 99999-9999" required>
+                <!-- inputs data -->
+
+                <input type="hidden" name="titulo" value="<?php echo $value['titulo']; ?> ">
+                <input type="hidden" name="valor" value="<?php echo $value['valor']; ?> ">
+                <input type="hidden" name="bairroNome" value="<?php echo $value['nome']; ?> ">
+                <input type="hidden" name="whatsapp" value="<?php echo $value['whatsapp']; ?> ">
+                <input type="hidden" name="url" value="<?php echo $urlCompleta ?> ">
+                <input type="hidden" name="quarto" value="<?php echo $value['quartos']; ?> ">
+                <input type="hidden" name="area" value="<?php echo $value['area_construida']; ?> ">
+
+
+
+
+                <div class="d-grid mt-4">
+                  <input class="botao-zap" onclick="saveData()" type="submit" name="enviar" value="Chamar no WhatsApp">
+                </div>
+              </div>
+            </form>
+          </div>
+          <!-- /mensagem -->
+
+          <div class="info-corretor">
+            <header>
+              <img src="<?php
+                        $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg";
+                        echo $retVal;
+                        ?>" alt="Anunciante" class="profile-thumbnail" />
+              <div class="profile-name">
+                <h3>
+                  <?php echo mb_convert_encoding($value['nome_user'], 'UTF-8', 'ISO-8859-1');  ?>
+                </h3>
+                <h4>Anunciante</h4>
+                <h5>WhatsApp:
+                  <?php echo $value['whatsapp']; ?>
+                </h5>
+              </div>
+            </header>
+            <div id="inner">
+              <p>
+                <?php echo mb_convert_encoding($value['descricao_user'], 'UTF-8', 'ISO-8859-1');  ?>
+
+              </p>
+              <!-- <span class="creci">CRECI-MT 12130 F</span> -->
+              <hr />
+            </div>
+            <footer>
+              <div class="stats">
+
+                <?php if ($value['ig'] !== "") {
+                ?>
+                  <div class="Retweets">
+                    <a href="<?php echo $value['ig']; ?>" target="_new"> <i class="fa fa-instagram"></i></a>
+                  </div>
+                <?php } ?>
+
+                <?php if ($value['fb'] !== "") {
+                ?>
+                  <div class="Retweets">
+                    <a href="<?php echo $value['fb']; ?>" target="_new"> <i class="fa fa-facebook-square"></i></a>
+                  </div>
+                <?php } ?>
+
+                <?php if ($value['linkedin'] !== "") {
+                ?>
+                  <div class="Retweets">
+                    <a href="<?php echo $value['linkedin']; ?>" target="_new"> <i class="fab fa-linkedin"></i></a>
+                  </div>
+                <?php } ?>
+
+                <?php if ($value['site'] !== "") {
+                ?>
+                  <div class="Retweets">
+                    <a href="<?php echo $value['site']; ?>" target="_new"> <i class="fas fa-sitemap"></i></a>
+                  </div>
+                <?php } ?>
+              </div>
+            </footer>
+          </div>
+
+          <?php
+          $urlEncaminha = "https://api.whatsapp.com/send?text=";
+          $urlEncaminha .= "🏢 *" . $value['titulo'] . "* %0A%0A";
+          $urlEncaminha .= "💰```Valor: R$" . number_format($value['valor'], 2, ',', '.') . "```%0A";
+          $urlEncaminha .= "📍```Bairro: " . $value['nome'] . "```%0A";
+          $urlEncaminha .= "⏹```Quartos: " . $value['quartos'] . "```%0A";
+          $urlEncaminha .= "📐```Área: " . $value['area_construida'] . "m²```%0A%0A";
+          $urlEncaminha .= "Vi esse imóvel no site: *APARTAMENTOAVENDACUIABA*: %0A"
+            . "https://www.apartamentoavendacuiaba.com.br" . $urlCompleta;
+
+          ?>
+
+
+
+          <a href="<?php echo $urlEncaminha; ?>" class="shareImovel mt-4"><i class="fab fa-whatsapp"></i> Compartilhar este
+            imóvel</a>
+
         </div>
-      <?php } ?>
-
-      <?php if ($value['fb'] !== "") {
-      ?>
-        <div class="Retweets">
-          <a href="<?php echo $value['fb']; ?>" target="_new"> <i class="fa fa-facebook-square"></i></a>
-        </div>
-      <?php } ?>
-
-      <?php if ($value['linkedin'] !== "") {
-      ?>
-        <div class="Retweets">
-          <a href="<?php echo $value['linkedin']; ?>" target="_new"> <i class="fab fa-linkedin"></i></a>
-        </div>
-      <?php } ?>
-
-      <?php if ($value['site'] !== "") {
-      ?>
-        <div class="Retweets">
-          <a href="<?php echo $value['site']; ?>" target="_new"> <i class="fas fa-sitemap"></i></a>
-        </div>
-      <?php } ?>
-    </div>
-  </footer>
-</div>
-
-<?php
-$urlEncaminha = "https://api.whatsapp.com/send?text=";
-$urlEncaminha .= "🏢 *" . $value['titulo'] . "* %0A%0A";
-$urlEncaminha .= "💰```Valor: R$" . number_format($value['valor'], 2, ',', '.') . "```%0A";
-$urlEncaminha .= "📍```Bairro: " . $value['nome'] . "```%0A";
-$urlEncaminha .= "⏹```Quartos: " . $value['quartos'] . "```%0A";
-$urlEncaminha .= "📐```Área: " . $value['area_construida'] . "m²```%0A%0A";
-$urlEncaminha .= "Vi esse imóvel no site: *APARTAMENTOAVENDACUIABA*: %0A"
-  . "https://www.apartamentoavendacuiaba.com.br" . $urlCompleta;
-
-?>
-
-
-
-<a href="<?php echo $urlEncaminha; ?>" class="shareImovel mt-4"><i class="fab fa-whatsapp"></i> Compartilhar este
-  imóvel</a>
-
-</div>
       </div>
+
+      <div class="col-lg-9 float-left">
+        <div class="titulo-preco">
+
+          <div class="tituloLeft">
+            <h1 class="imovel-title" title="<?php
+                                            echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
+                                            ?>">
+              <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
+            </h1>
+            <p class="bairro-title">
+              <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>
+            </p>
+          </div>
+
+          <div class="precoRight">
+            <h2 class="imovel-valor" title="<?php echo $value['valor'] ?>">R$
+              <?php
+
+              $valorImovel = $value['valor'];
+              $valorImovelMostrar = $valorImovel;
+              $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
+              echo " " . $valorImovelFormatado;
+              ?>
+            </h2>
+            <small>Condomínio:
+              <?php
+
+              $valorCond = $value['valor_condominio'];
+              $valorCondMostrar = $valorCond;
+              $valorCondFormatado = number_format($valorCondMostrar, 2, ",", ".");
+              echo "" . $valorCondFormatado;
+
+              ?>
+            </small><br>
+            <small>IPTU:
+              <?php
+
+              $valorIptu = $value['iptu'];
+              $valorIptuMostrar = $valorIptu;
+              $valorIptuFormatado = number_format($valorIptuMostrar, 2, ",", ".");
+              echo "" . $valorIptuFormatado;
+              ?>
+            </small>
+          </div>
+
+        </div>
+      </div>
+
+
     </div>
   </div>
 
@@ -834,8 +907,10 @@ $urlEncaminha .= "Vi esse imóvel no site: *APARTAMENTOAVENDACUIABA*: %0A"
   </footer>
 
   <!-- JavaScript Bundle with Popper -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
-
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
   <script>
     // Função para salvar os dados no LocalStorage e aplicar a máscara
     function saveData() {
