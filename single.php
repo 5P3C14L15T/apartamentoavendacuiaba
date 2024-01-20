@@ -47,9 +47,31 @@ if (!isset($value['id_imovel'])) {
 
 $dataImagem = $db->getImageByIdImovel($value['id_imovel']);
 
-echo "<pre>";
-print_r($dataImagem[0]['url']);
-echo "</pre>";
+// echo "<pre>";
+// print_r(count($dataImagem));
+// print_r($dataImagem);
+// echo "</pre>";
+
+$img = [];
+for ($i = 0; $i < count($dataImagem); $i++) {
+  if ($dataImagem[$i]['url_webp']) {
+    # code...
+
+    if ($i < 5) {
+      $img[] = $dataImagem[$i]['url_webp'];
+    } else {
+      $img[] = $dataImagem[$i]['url_webp'];
+    }
+  } else {
+    if ($i < 5) {
+      $img[] = $dataImagem[$i]['url'];
+    } else {
+      $img[] = $dataImagem[$i]['url'];
+    }
+  }
+}
+
+// print_r($img);
 
 
 foreach ($dataImagem as $keyImagem => $valueImagem) {
@@ -204,630 +226,500 @@ $dataMenorViews = $db->getImoveisMenorViews();
     </div>
   </div> -->
   <div class="container py-5">
-    <div class="row bg-dark">
+    <div class="row">
       <a href="index.php" target="_blank" class="voltar w-100 mb-3"><i class="fas fa-home"></i> Voltar > Inicial</a>
 
 
-      <div class="col-lg-9 galeria-main">
+      <div class="col-lg-12 m-0 p-0">
         <div class="row">
-          <div class="col-lg-6">
-            <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 1">
-              <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
-            </a>
-          </div>
-          <div class="col-lg-6">
+          <div class="col-lg-9 galeria-main">
             <div class="row">
               <div class="col-lg-6">
-                <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 2">
-                  <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
+                <a href="<?php echo "./app/" . ($dataImagem[0]['url_webp'] ? $dataImagem[0]['url_webp'] : $dataImagem[0]['url']); ?>" data-lightbox="image-gallery" data-title="<?php echo $value['titulo']; ?>">
+                  <div class="img-container">
+                    <img class="img-fluid img-imovel zoom" src="<?php echo "./app/" . ($dataImagem[0]['url_webp'] ? $dataImagem[0]['url_webp'] : $dataImagem[0]['url']); ?>" alt="<?php echo $value['titulo']; ?>">
+                  </div>
                 </a>
               </div>
+
+
               <div class="col-lg-6">
-                <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 3">
-                  <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
-                </a>
-              </div>
-              <div class="col-lg-6 mt-4">
-                <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 2">
-                  <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
-                </a>
-              </div>
-              <div class="col-lg-6 mt-4">
-                <a href="https://via.placeholder.com/1000" data-lightbox="image-gallery" data-title="Imagem 3">
-                  <img class="img-fluid" src="https://via.placeholder.com/1000" alt="" srcset="">
-                </a>
-              </div>
+                <div class="row m-0 p-0 position-relative">
 
-            </div>
-          </div>
-        </div>
-      </div>
+                  <?php
+                  $totalImages = count($img); // Obtém o total de imagens
 
-      <div class="col-lg-9 carrossel-main">
-        <div class="car-main">
-          <div class="gallery col-md-12 col-sm-12 mx-auto">
-            <div class="row">
-              <!-- slider -->
-              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                  foreach ($img as $key => $i) {
+                    // Adiciona a classe d-none para imagens além da quarta
+                    $class = ($key > 4) ? 'd-none' : '';
 
-                <div class="carousel-inner">
+                    // Exibir imagens da segunda à quarta sem interromper o loop
+                    if ($key >= 1) {
+                  ?>
+                      <div class="col-lg-6 photo <?php echo $class; ?>">
+                        <a href="<?php echo "./app/" . $i; ?>" data-lightbox="image-gallery" data-title="<?php echo $value['titulo']; ?>">
+                          <div class="img-container">
+                            <img class="img-fluid img-imovel2" src="<?php echo "./app/" . $i; ?>" alt="<?php echo $value['titulo']; ?>">
+                          </div>
+                        </a>
+                      </div>
 
 
-                  <?php $i = 0;
-                  foreach ($dataImagem as $row) : ?>
-                    <?php if ($i == 0) {
-                      $set_ = 'active';
-                    } else {
-                      $set_ = '';
-                    } ?>
-                    <div class='carousel-item <?php echo $set_; ?>'>
-                      <img src='<?php echo "./app/" . ($row['url_webp'] ? $row['url_webp'] : $row['url']); ?>' class='d-block w-100'>
+                  <?php
+                    }
+                  }
+                  ?>
+
+                  <?php
+                  // Adicionar o texto +X sobreposto à última imagem
+                  $remainingImages = max(0, $totalImages - 5);
+                  if ($remainingImages > 0) {
+                  ?>
+                    <div class="col-lg-3 pointer  photo position-absolute bottom-0 end-0 <?php echo ($totalImages > 5) ? '' : 'd-none'; ?>">
+                      <p class="overlay-text text-center mt-2">+<?php echo $remainingImages; ?> fotos</p>
                     </div>
-                  <?php $i++;
-                  endforeach ?>
+                  <?php
+                  }
+                  ?>
 
                 </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Anterior</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                  <span class="visually-hidden">Próxima</span>
-                </button>
               </div>
-              <!-- /slider -->
+
+            </div>
+
+            <div class="col-lg-12 float-left">
+              <div class="titulo-preco">
+
+                <div class="tituloLeft">
+                  <h1 class="imovel-title" title="<?php
+                                                  echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
+                                                  ?>">
+                    <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
+                  </h1>
+                  <p class="bairro-title">
+                    <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>
+                  </p>
+                </div>
+
+                <div class="precoRight">
+                  <h2 class="imovel-valor" title="<?php echo $value['valor'] ?>">R$
+                    <?php
+
+                    $valorImovel = $value['valor'];
+                    $valorImovelMostrar = $valorImovel;
+                    $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
+                    echo " " . $valorImovelFormatado;
+                    ?>
+                  </h2>
+                  <small>Condomínio:
+                    <?php
+
+                    $valorCond = $value['valor_condominio'];
+                    $valorCondMostrar = $valorCond;
+                    $valorCondFormatado = number_format($valorCondMostrar, 2, ",", ".");
+                    echo "" . $valorCondFormatado;
+
+                    ?>
+                  </small><br>
+                  <small>IPTU:
+                    <?php
+
+                    $valorIptu = $value['iptu'];
+                    $valorIptuMostrar = $valorIptu;
+                    $valorIptuFormatado = number_format($valorIptuMostrar, 2, ",", ".");
+                    echo "" . $valorIptuFormatado;
+                    ?>
+                  </small>
+                </div>
+
+              </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      <div class="col-lg-3 p-0 bg-dark">
-        <div class="col-sm-12 col-lg-12 info-corretor-main p-0">
+          <div class="col-lg-9 carrossel-main">
+            <div class="car-main">
+              <div class="gallery col-md-12 col-sm-12 mx-auto">
+                <div class="row">
+                  <!-- slider -->
+                  <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 
-          <!-- mensagem -->
-          <div class="mensagem-corretor p-0">
-
-
-            <form action="whatsapp.php" method="POST">
-              <div class="form-header">
-                <h3>Chamar anunciante no WhatsApp</h3>
-              </div>
-              <div class="form-body">
-                <p class="aviso-form">Preencha corretamente para poder falar direto com o anunciante deste imóvel pelo
-                  whatsapp</p>
-
-                <legend>Seu Nome <small class="text-secondary">(insira seu nome)</small></legend>
-                <input class="form-control form-control-lg" id="nome" name="nomeLead" type="text" placeholder="Qual o seu nome?" required>
-                <legend>Seu WhatsApp <small class="text-secondary">(preencha somente os números)</small></legend>
-                <input class="form-control form-control-lg" maxlength="15" id="telefone" name="whatsappLead" type="text" placeholder="(65) 99999-9999" required>
-                <!-- inputs data -->
-
-                <input type="hidden" name="titulo" value="<?php echo $value['titulo']; ?> ">
-                <input type="hidden" name="valor" value="<?php echo $value['valor']; ?> ">
-                <input type="hidden" name="bairroNome" value="<?php echo $value['nome']; ?> ">
-                <input type="hidden" name="whatsapp" value="<?php echo $value['whatsapp']; ?> ">
-                <input type="hidden" name="url" value="<?php echo $urlCompleta ?> ">
-                <input type="hidden" name="quarto" value="<?php echo $value['quartos']; ?> ">
-                <input type="hidden" name="area" value="<?php echo $value['area_construida']; ?> ">
+                    <div class="carousel-inner">
 
 
+                      <?php $i = 0;
+                      foreach ($dataImagem as $row) : ?>
+                        <?php if ($i == 0) {
+                          $set_ = 'active';
+                        } else {
+                          $set_ = '';
+                        } ?>
+                        <div class='carousel-item <?php echo $set_; ?>'>
+                          <img src='<?php echo "./app/" . ($row['url_webp'] ? $row['url_webp'] : $row['url']); ?>' class='d-block w-100'>
+                        </div>
+                      <?php $i++;
+                      endforeach ?>
 
-
-                <div class="d-grid mt-4">
-                  <input class="botao-zap" onclick="saveData()" type="submit" name="enviar" value="Chamar no WhatsApp">
+                    </div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Anterior</span>
+                    </button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="visually-hidden">Próxima</span>
+                    </button>
+                  </div>
+                  <!-- /slider -->
                 </div>
               </div>
-            </form>
-          </div>
-          <!-- /mensagem -->
 
-          <div class="info-corretor">
-            <header>
-              <img src="<?php
-                        $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg";
-                        echo $retVal;
-                        ?>" alt="Anunciante" class="profile-thumbnail" />
-              <div class="profile-name">
-                <h3>
-                  <?php echo mb_convert_encoding($value['nome_user'], 'UTF-8', 'ISO-8859-1');  ?>
-                </h3>
-                <h4>Anunciante</h4>
-                <h5>WhatsApp:
-                  <?php echo $value['whatsapp']; ?>
-                </h5>
-              </div>
-            </header>
-            <div id="inner">
-              <p>
-                <?php echo mb_convert_encoding($value['descricao_user'], 'UTF-8', 'ISO-8859-1');  ?>
 
-              </p>
-              <!-- <span class="creci">CRECI-MT 12130 F</span> -->
-              <hr />
             </div>
-            <footer>
-              <div class="stats">
 
-                <?php if ($value['ig'] !== "") {
-                ?>
-                  <div class="Retweets">
-                    <a href="<?php echo $value['ig']; ?>" target="_new"> <i class="fa fa-instagram"></i></a>
-                  </div>
-                <?php } ?>
 
-                <?php if ($value['fb'] !== "") {
-                ?>
-                  <div class="Retweets">
-                    <a href="<?php echo $value['fb']; ?>" target="_new"> <i class="fa fa-facebook-square"></i></a>
-                  </div>
-                <?php } ?>
+            <div class="col-lg-9 float-left">
+              <div class="titulo-preco">
 
-                <?php if ($value['linkedin'] !== "") {
-                ?>
-                  <div class="Retweets">
-                    <a href="<?php echo $value['linkedin']; ?>" target="_new"> <i class="fab fa-linkedin"></i></a>
-                  </div>
-                <?php } ?>
+                <div class="tituloLeft">
+                  <h1 class="imovel-title" title="<?php
+                                                  echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
+                                                  ?>">
+                    <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
+                  </h1>
+                  <p class="bairro-title">
+                    <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>
+                  </p>
+                </div>
 
-                <?php if ($value['site'] !== "") {
-                ?>
-                  <div class="Retweets">
-                    <a href="<?php echo $value['site']; ?>" target="_new"> <i class="fas fa-sitemap"></i></a>
-                  </div>
-                <?php } ?>
+                <div class="precoRight">
+                  <h2 class="imovel-valor" title="<?php echo $value['valor'] ?>">R$
+                    <?php
+
+                    $valorImovel = $value['valor'];
+                    $valorImovelMostrar = $valorImovel;
+                    $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
+                    echo " " . $valorImovelFormatado;
+                    ?>
+                  </h2>
+                  <small>Condomínio:
+                    <?php
+
+                    $valorCond = $value['valor_condominio'];
+                    $valorCondMostrar = $valorCond;
+                    $valorCondFormatado = number_format($valorCondMostrar, 2, ",", ".");
+                    echo "" . $valorCondFormatado;
+
+                    ?>
+                  </small><br>
+                  <small>IPTU:
+                    <?php
+
+                    $valorIptu = $value['iptu'];
+                    $valorIptuMostrar = $valorIptu;
+                    $valorIptuFormatado = number_format($valorIptuMostrar, 2, ",", ".");
+                    echo "" . $valorIptuFormatado;
+                    ?>
+                  </small>
+                </div>
+
               </div>
-            </footer>
+            </div>
           </div>
 
-          <?php
-          $urlEncaminha = "https://api.whatsapp.com/send?text=";
-          $urlEncaminha .= "🏢 *" . $value['titulo'] . "* %0A%0A";
-          $urlEncaminha .= "💰```Valor: R$" . number_format($value['valor'], 2, ',', '.') . "```%0A";
-          $urlEncaminha .= "📍```Bairro: " . $value['nome'] . "```%0A";
-          $urlEncaminha .= "⏹```Quartos: " . $value['quartos'] . "```%0A";
-          $urlEncaminha .= "📐```Área: " . $value['area_construida'] . "m²```%0A%0A";
-          $urlEncaminha .= "Vi esse imóvel no site: *APARTAMENTOAVENDACUIABA*: %0A"
-            . "https://www.apartamentoavendacuiaba.com.br" . $urlCompleta;
+          <div class="col-lg-3 p-0">
+            <div class="col-sm-12 col-lg-12 info-corretor-main p-0">
 
-          ?>
+              <!-- mensagem -->
+              <div class="mensagem-corretor p-0">
 
 
+                <form action="whatsapp.php" method="POST">
+                  <div class="form-header">
+                    <h3>Chamar anunciante no WhatsApp</h3>
+                  </div>
+                  <div class="form-body">
+                    <p class="aviso-form">Preencha corretamente para poder falar direto com o anunciante deste imóvel pelo
+                      whatsapp</p>
 
-          <a href="<?php echo $urlEncaminha; ?>" class="shareImovel mt-4"><i class="fab fa-whatsapp"></i> Compartilhar este
-            imóvel</a>
+                    <legend>Seu Nome <small class="text-secondary">(insira seu nome)</small></legend>
+                    <input class="form-control form-control-lg" id="nome" name="nomeLead" type="text" placeholder="Qual o seu nome?" required>
+                    <legend>Seu WhatsApp <small class="text-secondary">(preencha somente os números)</small></legend>
+                    <input class="form-control form-control-lg" maxlength="15" id="telefone" name="whatsappLead" type="text" placeholder="(65) 99999-9999" required>
+                    <!-- inputs data -->
 
-        </div>
-      </div>
+                    <input type="hidden" name="titulo" value="<?php echo $value['titulo']; ?> ">
+                    <input type="hidden" name="valor" value="<?php echo $value['valor']; ?> ">
+                    <input type="hidden" name="bairroNome" value="<?php echo $value['nome']; ?> ">
+                    <input type="hidden" name="whatsapp" value="<?php echo $value['whatsapp']; ?> ">
+                    <input type="hidden" name="url" value="<?php echo $urlCompleta ?> ">
+                    <input type="hidden" name="quarto" value="<?php echo $value['quartos']; ?> ">
+                    <input type="hidden" name="area" value="<?php echo $value['area_construida']; ?> ">
 
-      <div class="col-lg-9 float-left">
-        <div class="titulo-preco">
 
-          <div class="tituloLeft">
-            <h1 class="imovel-title" title="<?php
-                                            echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
-                                            ?>">
-              <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
-            </h1>
-            <p class="bairro-title">
-              <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>
+
+
+                    <div class="d-grid mt-4">
+                      <input class="botao-zap" onclick="saveData()" type="submit" name="enviar" value="Chamar no WhatsApp">
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <!-- /mensagem -->
+
+              <div class="info-corretor">
+                <header>
+                  <img src="<?php
+                            $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg";
+                            echo $retVal;
+                            ?>" alt="Anunciante" class="profile-thumbnail" />
+                  <div class="profile-name">
+                    <h3>
+                      <?php echo mb_convert_encoding($value['nome_user'], 'UTF-8', 'ISO-8859-1');  ?>
+                    </h3>
+                    <h4>Anunciante</h4>
+                    <h5>WhatsApp:
+                      <?php echo $value['whatsapp']; ?>
+                    </h5>
+                  </div>
+                </header>
+                <div id="inner">
+                  <p>
+                    <?php echo mb_convert_encoding($value['descricao_user'], 'UTF-8', 'ISO-8859-1');  ?>
+
+                  </p>
+                  <!-- <span class="creci">CRECI-MT 12130 F</span> -->
+                  <hr />
+                </div>
+                <footer>
+                  <div class="stats">
+
+                    <?php if ($value['ig'] !== "") {
+                    ?>
+                      <div class="Retweets">
+                        <a href="<?php echo $value['ig']; ?>" target="_new"> <i class="fa fa-instagram"></i></a>
+                      </div>
+                    <?php } ?>
+
+                    <?php if ($value['fb'] !== "") {
+                    ?>
+                      <div class="Retweets">
+                        <a href="<?php echo $value['fb']; ?>" target="_new"> <i class="fa fa-facebook-square"></i></a>
+                      </div>
+                    <?php } ?>
+
+                    <?php if ($value['linkedin'] !== "") {
+                    ?>
+                      <div class="Retweets">
+                        <a href="<?php echo $value['linkedin']; ?>" target="_new"> <i class="fab fa-linkedin"></i></a>
+                      </div>
+                    <?php } ?>
+
+                    <?php if ($value['site'] !== "") {
+                    ?>
+                      <div class="Retweets">
+                        <a href="<?php echo $value['site']; ?>" target="_new"> <i class="fas fa-sitemap"></i></a>
+                      </div>
+                    <?php } ?>
+                  </div>
+                </footer>
+              </div>
+
+              <?php
+              $urlEncaminha = "https://api.whatsapp.com/send?text=";
+              $urlEncaminha .= "🏢 *" . $value['titulo'] . "* %0A%0A";
+              $urlEncaminha .= "💰```Valor: R$" . number_format($value['valor'], 2, ',', '.') . "```%0A";
+              $urlEncaminha .= "📍```Bairro: " . $value['nome'] . "```%0A";
+              $urlEncaminha .= "⏹```Quartos: " . $value['quartos'] . "```%0A";
+              $urlEncaminha .= "📐```Área: " . $value['area_construida'] . "m²```%0A%0A";
+              $urlEncaminha .= "Vi esse imóvel no site: *APARTAMENTOAVENDACUIABA*: %0A"
+                . "https://www.apartamentoavendacuiaba.com.br" . $urlCompleta;
+
+              ?>
+
+
+
+              <a href="<?php echo $urlEncaminha; ?>" class="shareImovel mt-4"><i class="fab fa-whatsapp"></i> Compartilhar este
+                imóvel</a>
+
+            </div>
+          </div>
+
+          <div class="col-lg-9">
+            <p class="descricao">
+              <strong>Descrição do Imóvel: </strong> <br>
+              <?php echo mb_convert_encoding(nl2br($value['descricao']), 'UTF-8', 'ISO-8859-1'); ?>
             </p>
+            <div class="container">
+              <div class="row itens">
+
+
+                <div class="col-md-4 text-center item">
+                  <i class="fas fa-bed"></i>
+                  <p>
+                    <?php echo $value['quartos'] ?> Quartos
+                  </p>
+                </div>
+
+                <?php if ($value['suite'] == "") {
+                ?>
+
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-bath"></i>
+                    <p>Suíte</p>
+                  </div>
+
+                <?php } ?>
+
+                <!-- sala -->
+                <?php if ($value['sala'] == 1) {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-tv"></i>
+                    <p>
+                      <?php echo "Sala"; ?>
+                    </p>
+                  </div>
+                <?php } ?>
+
+
+
+                <!-- cozinha -->
+
+                <?php if ($value['cozinha'] == 1) {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-utensil-spoon"></i>
+                    <p>
+                      <?php echo "Cozinha"; ?>
+                    </p>
+                  </div>
+
+                <?php } ?>
+
+                <!-- lavanderia -->
+
+                <?php if ($value['lavanderia'] == 1) {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-tshirt"></i>
+                    <p>
+                      <?php echo "Lavanderia"; ?>
+                    </p>
+                  </div>
+
+                <?php } ?>
+
+                <!-- sacada -->
+
+                <?php if ($value['sacada'] == 1) {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-building"></i>
+                    <p>
+                      <?php echo "Sacada"; ?>
+                    </p>
+                  </div>
+                <?php } ?>
+
+
+
+
+                <!-- banheiro social -->
+
+                <?php if ($value['banheiros'] !== "") {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-shower"></i>
+                    <p>
+                      <?php echo $value['banheiros'] ?> Banheiro(s)
+                    </p>
+                  </div>
+                <?php } ?>
+
+                <!-- elevador -->
+
+                <?php if ($value['elevador'] == 1) {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-chevron-circle-up"></i>
+                    <p>
+                      <?php echo "Elevador"; ?>
+                    </p>
+                  </div>
+                <?php } ?>
+
+
+                <!-- garagem -->
+
+                <?php if ($value['garagem'] !== "") {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-car"></i>
+                    <p>
+                      <?php echo $value['garagem']; ?> Garagem
+                    </p>
+                  </div>
+                <?php } ?>
+
+                <!-- andar -->
+
+                <?php if ($value['andar'] !== "") {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-arrows-alt-v"></i>
+                    <p>
+                      <?php echo $value['andar']; ?>º Andar
+                    </p>
+                  </div>
+                <?php } ?>
+
+
+
+                <!-- area de lazer -->
+
+                <?php if ($value['area_lazer'] == 1) {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-swimming-pool"></i>
+                    <p>
+                      <?php echo "Área de Lazer"; ?>
+                    </p>
+                  </div>
+                <?php } ?>
+
+                <!-- area construída -->
+
+                <?php if ($value['area_construida'] !== "") {
+                ?>
+                  <div class="col-md-4 text-center item">
+                    <i class="fas fa-ruler-combined"></i>
+                    <p>Área:
+                      <?php echo $value['area_construida'] . "m²"; ?>
+                    </p>
+                  </div>
+                <?php } ?>
+                <!-- area construída -->
+
+              </div>
+            </div>
+
           </div>
-
-          <div class="precoRight">
-            <h2 class="imovel-valor" title="<?php echo $value['valor'] ?>">R$
-              <?php
-
-              $valorImovel = $value['valor'];
-              $valorImovelMostrar = $valorImovel;
-              $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
-              echo " " . $valorImovelFormatado;
-              ?>
-            </h2>
-            <small>Condomínio:
-              <?php
-
-              $valorCond = $value['valor_condominio'];
-              $valorCondMostrar = $valorCond;
-              $valorCondFormatado = number_format($valorCondMostrar, 2, ",", ".");
-              echo "" . $valorCondFormatado;
-
-              ?>
-            </small><br>
-            <small>IPTU:
-              <?php
-
-              $valorIptu = $value['iptu'];
-              $valorIptuMostrar = $valorIptu;
-              $valorIptuFormatado = number_format($valorIptuMostrar, 2, ",", ".");
-              echo "" . $valorIptuFormatado;
-              ?>
-            </small>
-          </div>
-
+          <div class="col-lg-3">teste</div>
         </div>
-      </div>
 
+      </div>
 
     </div>
   </div>
 
   <!-- final nova container -->
 
-  <div class="container py-5">
-    <div class="row col-md-10 mx-auto">
-      <a href="index.php" target="_blank" class="voltar"><i class="fas fa-home"></i> Voltar > Inicial</a>
-      <div class="titulo-preco">
-
-        <div class="tituloLeft">
-          <h1 class="imovel-title" title="<?php
-                                          echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
-                                          ?>">
-            <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
-          </h1>
-          <p class="bairro-title">
-            <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>
-          </p>
-        </div>
-
-        <div class="precoRight">
-          <h2 class="imovel-valor" title="<?php echo $value['valor'] ?>">R$
-            <?php
-
-            $valorImovel = $value['valor'];
-            $valorImovelMostrar = $valorImovel;
-            $valorImovelFormatado = number_format($valorImovelMostrar, 2, ",", ".");
-            echo " " . $valorImovelFormatado;
-            ?>
-          </h2>
-          <small>Condomínio:
-            <?php
-
-            $valorCond = $value['valor_condominio'];
-            $valorCondMostrar = $valorCond;
-            $valorCondFormatado = number_format($valorCondMostrar, 2, ",", ".");
-            echo "" . $valorCondFormatado;
-
-            ?>
-          </small><br>
-          <small>IPTU:
-            <?php
-
-            $valorIptu = $value['iptu'];
-            $valorIptuMostrar = $valorIptu;
-            $valorIptuFormatado = number_format($valorIptuMostrar, 2, ",", ".");
-            echo "" . $valorIptuFormatado;
-            ?>
-          </small>
-        </div>
-
-      </div>
-      <div class="col-sm-12 col-md-7 info-desc">
-
-        <div class="info-desc-detais">
-
-          <div class="car-main">
-            <div class="gallery col-md-12 col-sm-12 mx-auto">
-              <div class="row">
-                <!-- slider -->
-                <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-
-                  <div class="carousel-inner">
-
-
-                    <?php $i = 0;
-                    foreach ($dataImagem as $row) : ?>
-                      <?php if ($i == 0) {
-                        $set_ = 'active';
-                      } else {
-                        $set_ = '';
-                      } ?>
-                      <div class='carousel-item <?php echo $set_; ?>'>
-                        <img src='<?php echo "./app/" . ($row['url_webp'] ? $row['url_webp'] : $row['url']); ?>' class='d-block w-100'>
-                      </div>
-                    <?php $i++;
-                    endforeach ?>
-
-                  </div>
-                  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Anterior</span>
-                  </button>
-                  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span class="visually-hidden">Próxima</span>
-                  </button>
-                </div>
-                <!-- /slider -->
-              </div>
-            </div>
-          </div>
-          <p class="descricao">
-            <strong>Descrição do Imóvel: </strong> <br>
-            <?php echo mb_convert_encoding(nl2br($value['descricao']), 'UTF-8', 'ISO-8859-1'); ?>
-          </p>
-          <!-- aqui vai os ítens da casa -->
-          <div class="container">
-            <div class="row itens">
-
-
-              <div class="col-md-4 text-center item">
-                <i class="fas fa-bed"></i>
-                <p>
-                  <?php echo $value['quartos'] ?> Quartos
-                </p>
-              </div>
-
-              <?php if ($value['suite'] == "") {
-              ?>
-
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-bath"></i>
-                  <p>Suíte</p>
-                </div>
-
-              <?php } ?>
-
-              <!-- sala -->
-              <?php if ($value['sala'] == 1) {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-tv"></i>
-                  <p>
-                    <?php echo "Sala"; ?>
-                  </p>
-                </div>
-              <?php } ?>
-
-
-
-              <!-- cozinha -->
-
-              <?php if ($value['cozinha'] == 1) {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-utensil-spoon"></i>
-                  <p>
-                    <?php echo "Cozinha"; ?>
-                  </p>
-                </div>
-
-              <?php } ?>
-
-              <!-- lavanderia -->
-
-              <?php if ($value['lavanderia'] == 1) {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-tshirt"></i>
-                  <p>
-                    <?php echo "Lavanderia"; ?>
-                  </p>
-                </div>
-
-              <?php } ?>
-
-              <!-- sacada -->
-
-              <?php if ($value['sacada'] == 1) {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-building"></i>
-                  <p>
-                    <?php echo "Sacada"; ?>
-                  </p>
-                </div>
-              <?php } ?>
-
-
-
-
-              <!-- banheiro social -->
-
-              <?php if ($value['banheiros'] !== "") {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-shower"></i>
-                  <p>
-                    <?php echo $value['banheiros'] ?> Banheiro(s)
-                  </p>
-                </div>
-              <?php } ?>
-
-              <!-- elevador -->
-
-              <?php if ($value['elevador'] == 1) {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-chevron-circle-up"></i>
-                  <p>
-                    <?php echo "Elevador"; ?>
-                  </p>
-                </div>
-              <?php } ?>
-
-
-              <!-- garagem -->
-
-              <?php if ($value['garagem'] !== "") {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-car"></i>
-                  <p>
-                    <?php echo $value['garagem']; ?> Garagem
-                  </p>
-                </div>
-              <?php } ?>
-
-              <!-- andar -->
-
-              <?php if ($value['andar'] !== "") {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-arrows-alt-v"></i>
-                  <p>
-                    <?php echo $value['andar']; ?>º Andar
-                  </p>
-                </div>
-              <?php } ?>
-
-
-
-              <!-- area de lazer -->
-
-              <?php if ($value['area_lazer'] == 1) {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-swimming-pool"></i>
-                  <p>
-                    <?php echo "Área de Lazer"; ?>
-                  </p>
-                </div>
-              <?php } ?>
-
-              <!-- area construída -->
-
-              <?php if ($value['area_construida'] !== "") {
-              ?>
-                <div class="col-md-4 text-center item">
-                  <i class="fas fa-ruler-combined"></i>
-                  <p>Área:
-                    <?php echo $value['area_construida'] . "m²"; ?>
-                  </p>
-                </div>
-              <?php } ?>
-              <!-- area construída -->
-
-            </div>
-          </div>
-
-
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-5 info-corretor-main">
-
-        <!-- mensagem -->
-        <div class="mensagem-corretor">
-
-
-          <form action="whatsapp.php" method="POST">
-            <div class="form-header">
-              <h3>Chamar anunciante no WhatsApp</h3>
-            </div>
-            <div class="form-body">
-              <p class="aviso-form">Preencha corretamente para poder falar direto com o anunciante deste imóvel pelo
-                whatsapp</p>
-
-              <legend>Seu Nome <small class="text-secondary">(insira seu nome)</small></legend>
-              <input class="form-control form-control-lg" id="nome" name="nomeLead" type="text" placeholder="Qual o seu nome?" required>
-              <legend>Seu WhatsApp <small class="text-secondary">(preencha somente os números)</small></legend>
-              <input class="form-control form-control-lg" maxlength="15" id="telefone" name="whatsappLead" type="text" placeholder="(65) 99999-9999" required>
-              <!-- inputs data -->
-
-              <input type="hidden" name="titulo" value="<?php echo $value['titulo']; ?> ">
-              <input type="hidden" name="valor" value="<?php echo $value['valor']; ?> ">
-              <input type="hidden" name="bairroNome" value="<?php echo $value['nome']; ?> ">
-              <input type="hidden" name="whatsapp" value="<?php echo $value['whatsapp']; ?> ">
-              <input type="hidden" name="url" value="<?php echo $urlCompleta ?> ">
-              <input type="hidden" name="quarto" value="<?php echo $value['quartos']; ?> ">
-              <input type="hidden" name="area" value="<?php echo $value['area_construida']; ?> ">
-
-
-
-
-              <div class="d-grid mt-4">
-                <input class="botao-zap" onclick="saveData()" type="submit" name="enviar" value="Chamar no WhatsApp">
-              </div>
-            </div>
-          </form>
-        </div>
-        <!-- /mensagem -->
-
-        <div class="info-corretor">
-          <header>
-            <img src="<?php
-                      $retVal = ($value['img'] != null) ? "app/" . $value['img'] : "imagem/perfil.jpg";
-                      echo $retVal;
-                      ?>" alt="Anunciante" class="profile-thumbnail" />
-            <div class="profile-name">
-              <h3>
-                <?php echo mb_convert_encoding($value['nome_user'], 'UTF-8', 'ISO-8859-1');  ?>
-              </h3>
-              <h4>Anunciante</h4>
-              <h5>WhatsApp:
-                <?php echo $value['whatsapp']; ?>
-              </h5>
-            </div>
-          </header>
-          <div id="inner">
-            <p>
-              <?php echo mb_convert_encoding($value['descricao_user'], 'UTF-8', 'ISO-8859-1');  ?>
-
-            </p>
-            <!-- <span class="creci">CRECI-MT 12130 F</span> -->
-            <hr />
-          </div>
-          <footer>
-            <div class="stats">
-
-              <?php if ($value['ig'] !== "") {
-              ?>
-                <div class="Retweets">
-                  <a href="<?php echo $value['ig']; ?>" target="_new"> <i class="fa fa-instagram"></i></a>
-                </div>
-              <?php } ?>
-
-              <?php if ($value['fb'] !== "") {
-              ?>
-                <div class="Retweets">
-                  <a href="<?php echo $value['fb']; ?>" target="_new"> <i class="fa fa-facebook-square"></i></a>
-                </div>
-              <?php } ?>
-
-              <?php if ($value['linkedin'] !== "") {
-              ?>
-                <div class="Retweets">
-                  <a href="<?php echo $value['linkedin']; ?>" target="_new"> <i class="fab fa-linkedin"></i></a>
-                </div>
-              <?php } ?>
-
-              <?php if ($value['site'] !== "") {
-              ?>
-                <div class="Retweets">
-                  <a href="<?php echo $value['site']; ?>" target="_new"> <i class="fas fa-sitemap"></i></a>
-                </div>
-              <?php } ?>
-            </div>
-          </footer>
-        </div>
-
-        <?php
-        $urlEncaminha = "https://api.whatsapp.com/send?text=";
-        $urlEncaminha .= "🏢 *" . $value['titulo'] . "* %0A%0A";
-        $urlEncaminha .= "💰```Valor: R$" . number_format($value['valor'], 2, ',', '.') . "```%0A";
-        $urlEncaminha .= "📍```Bairro: " . $value['nome'] . "```%0A";
-        $urlEncaminha .= "⏹```Quartos: " . $value['quartos'] . "```%0A";
-        $urlEncaminha .= "📐```Área: " . $value['area_construida'] . "m²```%0A%0A";
-        $urlEncaminha .= "Vi esse imóvel no site: *APARTAMENTOAVENDACUIABA*: %0A"
-          . "https://www.apartamentoavendacuiaba.com.br" . $urlCompleta;
-
-        ?>
-
-
-
-        <a href="<?php echo $urlEncaminha; ?>" class="shareImovel mt-4"><i class="fab fa-whatsapp"></i> Compartilhar este
-          imóvel</a>
-
-      </div>
-    </div>
-  </div>
-
 
 
   <div class="container">
 
 
-    <div class="row col-md-10 mx-auto outrosImoveis">
+    <div class="row col-lg-12 mx-auto outrosImoveis">
       <div class="tituloOutrosImoveis">
         <h1>Outros imóveis</h1>
       </div>

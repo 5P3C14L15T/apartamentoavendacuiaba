@@ -21,7 +21,7 @@
 }
 
 .voltar {
-  background: rgb(235, 240, 236);
+  /* background: rgb(235, 240, 236); */
   color: rgb(136, 133, 133);
   text-decoration: none;
   cursor: pointer;
@@ -643,3 +643,86 @@ font-size: 0.8em;
   padding: 0 !important;
   margin: 0 !important;
 }
+
+
+.img-imovel {
+
+  object-fit: cover !important;
+  width: 500px !important;
+  height: 500px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+
+
+
+}
+.img-imovel2 {
+
+  object-fit: cover !important;
+  width: 239px !important;
+  height: 239px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  text-align: left !important;
+
+
+
+}
+
+.row .photo { 
+  /* background: red !important; */
+  padding: 0 !important;
+  margin-bottom: 23px !important;
+  padding-right: 21px !important;
+}
+
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+.bottom-0 {
+  bottom: 0;
+}
+
+.end-0 {
+  right: 0;
+}
+
+.translate-middle {
+  transform: translate(50%, 50%);
+}
+
+.overlay-text {
+  width: 80px !important;
+  background-color: rgba(255, 255, 255, 0.8); /* Cor de fundo ajustável */
+  padding: 2px;
+  border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 0.7em !important;
+  color: #828282;
+  cursor: pointer;
+}
+
+.img-container {
+  overflow: hidden;
+}
+
+.img-container img {
+  transition: transform 0.3s;
+}
+
+.img-container:hover img {
+  transform: scale(1.2);
+}
+
+
+
+
+
+
