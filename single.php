@@ -277,9 +277,9 @@ $dataMenorViews = $db->getImoveisMenorViews();
 
         <div class="tituloLeft">
           <h1 class="imovel-title" title="<?php
-                                          echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
+                                          echo $value['titulo'];
                                           ?>">
-            <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
+            <?php echo $value['titulo']; ?>
           </h1>
           <p class="bairro-title">
             <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>
@@ -392,9 +392,9 @@ $dataMenorViews = $db->getImoveisMenorViews();
 
                 <div class="tituloLeft">
                   <h1 class="imovel-title" title="<?php
-                                                  echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1');
+                                                  echo $value['titulo'];
                                                   ?>">
-                    <?php echo mb_convert_encoding($value['titulo'], 'UTF-8', 'ISO-8859-1'); ?>
+                    <?php echo $value['titulo']; ?>
                   </h1>
                   <p class="bairro-title">
                     <?php echo "Bairro: " . $value['nome'] ?><i class="fas fa-search-location"></i>

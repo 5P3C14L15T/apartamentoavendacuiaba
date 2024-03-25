@@ -281,6 +281,7 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
               // echo $nova_url;
             
               $imovelUrl = $db->criar_url_amigavel($urlAntiga, $tituloDeImovel, $codigoImovel);
+              echo $imovelUrl;
 
               ?>
 

@@ -152,11 +152,11 @@ class DB
                 imagecopyresampled($resized_image, $image, 0, 0, 0, 0, $new_width, $new_height, $width, $height);
 
                 // Salvar a imagem redimensionada como JPEG
-                imagejpeg($resized_image, $upload_path . $new_file_name, 70);
+                imagejpeg($resized_image, $upload_path . $new_file_name, 90);
 
                 // Converter a imagem para WebP
                 $image_webp = str_replace('.' . $file_type, '.webp', $upload_path . $new_file_name);
-                imagewebp($resized_image, $image_webp, 70);
+                imagewebp($resized_image, $image_webp, 90);
 
                 echo "<img src=" . $image_webp . ">";
                 echo "<hr>";
@@ -172,7 +172,7 @@ class DB
     }
 
 
-    
+
 
 
 
@@ -698,7 +698,6 @@ WHERE imovel.status = 1";
     public function criar_url_amigavel($url, $titulo, $codigo)
     {
         // Remove espaços e caracteres especiais do título
-
         $normalizeChars = array(
             'Š' => 'S',
             'š' => 's',
@@ -782,12 +781,11 @@ WHERE imovel.status = 1";
             'Ț' => 'T',
         );
 
-        //Output: E A I A I A I A I C O E O E O E O O e U e U i U i U o Y o a u a y c
         $titulo = strtr($titulo, $normalizeChars);
-        $titulo_sem_espacos = preg_replace('/[^a-zA-Z0-9]/', '-', $titulo);
-
-        // $titulo_sem_espacos = preg_replace('/[^a-zA-Z0-9]/', '-', iconv('UTF-8', 'ASCII//TRANSLIT', $titulo));
-
+        // Remove caracteres especiais
+        $titulo = preg_replace('/[^a-zA-Z0-9\s]/', '', $titulo);
+        // Remove espaços extras e substitui por hífen
+        $titulo_sem_espacos = preg_replace('/\s+/', '-', $titulo);
 
         // Remove a última barra se houver
         $url_sem_barra = rtrim($url, '/');
@@ -795,9 +793,10 @@ WHERE imovel.status = 1";
         // Cria a nova URL amigável
         $nova_url = "{$url_sem_barra}/{$titulo_sem_espacos}-{$codigo}";
 
-        // Retorna a nova URL
+        // Retorna a nova URL em minúsculas
         return strtolower($nova_url);
     }
+
 
     function buscarImovel($cod_imovel)
     {
