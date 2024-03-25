@@ -151,7 +151,10 @@ $urlBase = "http://localhost/apartamentoavendacuiaba/";
 </head>
 
 <body>
+  
   <header class="main">
+
+  
 
     <nav class="menu">
 

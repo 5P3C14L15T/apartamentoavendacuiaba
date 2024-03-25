@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrossel Full Screen</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Estilo para fazer o carrossel em tela cheia */
+    .carousel-fullscreen {
+      height: 100vh;
+    }
+    .carousel-inner {
+      height: 100%;
+    }
+    .carousel-item img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+      cursor: pointer; /* Adiciona cursor de ponteiro para indicar que a imagem é clicável */
+    }
+  </style>
+</head>
+<body>
+
+<div id="carouselExampleControls" class="carousel slide carousel-fullscreen" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <img src="https://via.placeholder.com/1920x1080?text=Slide+1" class="d-block w-100" alt="Slide 1" data-bs-toggle="modal" data-bs-target="#imageModal">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/1920x1080?text=Slide+2" class="d-block w-100" alt="Slide 2" data-bs-toggle="modal" data-bs-target="#imageModal">
+    </div>
+    <div class="carousel-item">
+      <img src="https://via.placeholder.com/1920x1080?text=Slide+3" class="d-block w-100" alt="Slide 3" data-bs-toggle="modal" data-bs-target="#imageModal">
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-xl">
+    <div class="modal-content">
+      <img src="" class="img-fluid" id="modalImage" alt="Imagem em destaque">
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+<script>
+  // Adiciona um ouvinte de evento para cada imagem do carrossel
+  document.querySelectorAll('.carousel-item img').forEach(img => {
+    img.addEventListener('click', function() {
+      // Quando a imagem é clicada, atualiza a fonte da imagem na modal
+      const modalImage = document.getElementById('modalImage');
+      modalImage.src = this.src;
+      $('#imageModal').modal('show'); // Exibe a modal
+    });
+  });
+</script>
+</body>
+</html>
